@@ -59,7 +59,9 @@
                     { item_id: "5", rating: 0.85 },
                     { item_id: "6", rating: 0.84 },
                     { item_id: "7", rating: 0.83 },
-                    { item_id: "8", rating: 0.82 }
+                    { item_id: "8", rating: 0.82 },
+                    { item_id: "9", rating: 0.81 },
+                    { item_id: "10", rating: 0.80 },
                 ]
             };
         }
