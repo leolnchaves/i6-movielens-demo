@@ -77,9 +77,11 @@ body {
     margin: 0 auto;
 }
 
-.contact-content {
-    max-width: 1000px;
-    margin: 0 auto;
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
 }
 
 
@@ -276,9 +278,8 @@ body {
 }
 
 @media (max-width: 900px) {
-    .contact-cards {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .contact-grid {
+        gap: 40px;
     }
     
     #contactus-header {
