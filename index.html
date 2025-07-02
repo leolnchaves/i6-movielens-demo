@@ -1,55 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieLens Demo</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <!-- Loading state -->
-        <div id="loading" class="loading">
-            <div class="loading-content">
-                <div class="loading-spinner"></div>
-                <p>Carregando filmes...</p>
-            </div>
-        </div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>movielens-dream-weaver-alpha</title>
+    <meta name="description" content="Lovable Generated Project" />
+    <meta name="author" content="Lovable" />
 
-        <!-- Error state -->
-        <div id="error" class="error" style="display: none;">
-            <div class="error-content">
-                <h2>Erro ao carregar filmes</h2>
-                <button onclick="location.reload()" class="btn btn-primary">
-                    Tentar novamente
-                </button>
-            </div>
-        </div>
+    <meta property="og:title" content="movielens-dream-weaver-alpha" />
+    <meta property="og:description" content="Lovable Generated Project" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
-        <!-- Main content -->
-        <div id="main-content" style="display: none;">
-            <!-- Header -->
-            <header class="header">
-                <div class="header-content">
-                    <h1>MovieLens Demo</h1>
-                    <p id="movie-count">Catálogo com filmes</p>
-                </div>
-            </header>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@lovable_dev" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+  </head>
 
-            <!-- Movies Grid -->
-            <main class="main">
-                <div id="movies-grid" class="movies-grid">
-                    <!-- Movies will be populated here -->
-                </div>
-
-                <div id="no-movies" class="no-movies" style="display: none;">
-                    <h2>Nenhum filme encontrado</h2>
-                    <p>Verifique se o arquivo movies.json está acessível.</p>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
