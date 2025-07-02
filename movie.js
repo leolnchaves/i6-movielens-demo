@@ -11,6 +11,8 @@ function getMovieIdFromUrl() {
 async function loadMovie() {
     const movieId = getMovieIdFromUrl();
     
+    console.log('Loading movie with ID:', movieId);
+    
     if (!movieId) {
         showError('ID do filme não fornecido');
         return;
@@ -21,13 +23,27 @@ async function loadMovie() {
     const movieContentEl = document.getElementById('movie-content');
 
     try {
-        const response = await fetch('movies.json');
-        if (!response.ok) {
-            throw new Error('Failed to load movies');
+        console.log('Fetching movies data...');
+        let response;
+        try {
+            // Primeiro tenta carregar da pasta public/
+            response = await fetch('public/movies.json');
+        } catch (e) {
+            console.log('Failed to load from public/, trying root...');
+            // Se falhar, tenta da raiz
+            response = await fetch('movies.json');
         }
         
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        console.log('Response received, parsing JSON...');
         const movies = await response.json();
+        console.log('Movies loaded:', movies.length, 'total movies');
+        
         const movie = movies.find(m => m.movieId.toString() === movieId);
+        console.log('Found movie:', movie ? movie.title : 'Not found');
         
         loadingEl.style.display = 'none';
         
@@ -54,6 +70,8 @@ function showError(message) {
 }
 
 function renderMovie(movie) {
+    console.log('Rendering movie:', movie.title);
+    
     // Update page title
     document.title = `${movie.title} - MovieLens Demo`;
     
@@ -169,4 +187,6 @@ function renderMovie(movie) {
             statsContainer.appendChild(statDiv);
         }
     });
+    
+    console.log('Movie rendered successfully');
 }

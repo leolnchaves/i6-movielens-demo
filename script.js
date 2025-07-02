@@ -1,3 +1,31 @@
+// Copiar o movies.json da pasta public para a raiz
+fetch('public/movies.json')
+    .then(response => {
+        if (!response.ok) {
+            // Se não conseguir carregar de public/, tentar da raiz
+            return fetch('movies.json');
+        }
+        return response;
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to load movies');
+        }
+        return response.json();
+    })
+    .then(movies => {
+        console.log('Movies loaded successfully:', movies.length);
+        renderMovies(movies, document.getElementById('movies-grid'));
+        document.getElementById('movie-count').textContent = `Catálogo com ${movies.length} filmes`;
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error loading movies:', error);
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').style.display = 'flex';
+    });
+
 // Main page JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     loadMovies();
@@ -11,13 +39,26 @@ async function loadMovies() {
     const noMoviesEl = document.getElementById('no-movies');
     const movieCountEl = document.getElementById('movie-count');
 
+    console.log('Starting to load movies...');
+
     try {
-        const response = await fetch('movies.json');
-        if (!response.ok) {
-            throw new Error('Failed to load movies');
+        let response;
+        try {
+            // Primeiro tenta carregar da pasta public/
+            response = await fetch('public/movies.json');
+        } catch (e) {
+            console.log('Failed to load from public/, trying root...');
+            // Se falhar, tenta da raiz
+            response = await fetch('movies.json');
         }
         
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        console.log('Response received, parsing JSON...');
         const movies = await response.json();
+        console.log('Movies parsed successfully:', movies.length, 'movies found');
         
         loadingEl.style.display = 'none';
         
@@ -38,12 +79,14 @@ async function loadMovies() {
 }
 
 function renderMovies(movies, container) {
+    console.log('Rendering movies...');
     container.innerHTML = '';
     
     movies.forEach(movie => {
         const movieCard = createMovieCard(movie);
         container.appendChild(movieCard);
     });
+    console.log('Movies rendered successfully');
 }
 
 function createMovieCard(movie) {
