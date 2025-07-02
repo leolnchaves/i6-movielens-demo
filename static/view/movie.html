@@ -72,31 +72,35 @@
                                 </div>
                                 <p class="movie-plot">${selected.plot}</p>
                             </div>
-                            ${recommendedMovies.length > 0 ? `
-                                <div class="hero-recommendations">
-                                    <h3>✨ Descobertas Personalizadas</h3>
-                                    <div class="carousel-container">
-                                        <div class="carousel-track" id="carouselTrack">
-                                            ${recommendedMovies.map(movie => `
-                                                <div class="carousel-slide">
-                                                    <a href="#movie?id=${movie.movieId}" class="carousel-card">
-                                                        <img src="${movie.poster}" alt="${movie.title}">
-                                                        <div class="card-info-overlay">
-                                                            <h4>${movie.title}</h4>
-                                                            <p class="card-rating">★ ${movie.imdb_rating}</p>
-                                                            <p class="card-genres">${movie.genres ? movie.genres.slice(0, 2).join(', ') : ''}</p>
-                                                            <p class="card-year">${movie.released ? movie.released.split(' ').pop() : ''}</p>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            `).join('')}
-                                        </div>
-                                    </div>
-                                </div>
-                            ` : ''}
                         </div>
                     </div>
                 `);
+
+                // Seção de Recomendações abaixo da Hero
+                if (recommendedMovies.length > 0) {
+                    face.append(`
+                        <div class="hero-recommendations">
+                            <h3>✨ Descobertas Personalizadas</h3>
+                            <div class="carousel-container">
+                                <div class="carousel-track" id="carouselTrack">
+                                    ${recommendedMovies.map(movie => `
+                                        <div class="carousel-slide">
+                                            <a href="#movie?id=${movie.movieId}" class="carousel-card">
+                                                <img src="${movie.poster}" alt="${movie.title}">
+                                                <div class="card-info-overlay">
+                                                    <h4>${movie.title}</h4>
+                                                    <p class="card-rating">★ ${movie.imdb_rating}</p>
+                                                    <p class="card-genres">${movie.genres ? movie.genres.slice(0, 2).join(', ') : ''}</p>
+                                                    <p class="card-year">${movie.released ? movie.released.split(' ').pop() : ''}</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                }
 
                 // Movie Details Section
                 face.append(`

@@ -232,10 +232,11 @@ body {
     margin-right: 10px;
 }
 
-/* Hero Recommendations (Carousel) */
+/* Hero Recommendations (Carousel) - Positioned below hero */
 .hero-recommendations {
-    margin-top: 40px;
-    width: 100%;
+    padding: 40px 60px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .hero-recommendations h3 {
