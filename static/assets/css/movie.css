@@ -27,7 +27,7 @@ body {
 /* Hero Section */
 .movie-hero {
     position: relative;
-    height: 80vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -35,15 +35,16 @@ body {
 }
 
 .hero-backdrop {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background-size: cover;
     background-position: center;
-    filter: blur(20px) brightness(0.3);
-    transform: scale(1.1);
+    filter: blur(8px) brightness(0.2);
+    transform: scale(1.05);
+    z-index: -1;
 }
 
 .hero-overlay {

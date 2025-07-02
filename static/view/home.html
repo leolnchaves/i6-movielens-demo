@@ -51,16 +51,17 @@
             const nav = $('<nav class="pagination-nav"></nav>');
 
             if (currentPage > 1) {
-                const prev = $('<button>&lt; Anterior</button>').on('click', () => {
+                const prev = $('<button>← Anterior</button>').on('click', () => {
                     updatePageInHash(currentPage - 1);
                 });
                 nav.append(prev);
             }
 
-            nav.append(` Página ${currentPage} de ${totalPages} `);
+            const pageInfo = $(`<div class="pagination-info">Página ${currentPage} de ${totalPages}</div>`);
+            nav.append(pageInfo);
 
             if (currentPage < totalPages) {
-                const next = $('<button>Próxima &gt;</button>').on('click', () => {
+                const next = $('<button>Próxima →</button>').on('click', () => {
                     updatePageInHash(currentPage + 1);
                 });
                 nav.append(next);
