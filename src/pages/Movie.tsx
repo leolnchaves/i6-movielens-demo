@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Play, Download, Plus, Share, Bookmark } from 'lucide-react';
+import { ArrowLeft, Play, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -55,11 +55,11 @@ export default function Movie() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-red-500 via-purple-600 to-blue-700 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-pulse">
-            <div className="w-16 h-16 bg-muted rounded-full mx-auto mb-4"></div>
-            <p className="text-muted-foreground">Carregando filme...</p>
+            <div className="w-16 h-16 bg-white/20 rounded-full mx-auto mb-4"></div>
+            <p className="text-white/90 text-lg">Carregando filme...</p>
           </div>
         </div>
       </div>
@@ -68,11 +68,11 @@ export default function Movie() {
 
   if (error || !movie) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-red-500 via-purple-600 to-blue-700 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">{error || 'Filme não encontrado'}</h2>
+          <h2 className="text-3xl font-bold mb-6 text-white">{error || 'Filme não encontrado'}</h2>
           <Link to="/">
-            <Button variant="outline">
+            <Button className="bg-white/20 backdrop-blur-sm border border-white/40 text-white hover:bg-white/30 px-6 py-3 rounded-full">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Voltar para início
             </Button>
@@ -83,21 +83,27 @@ export default function Movie() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-red-500 via-purple-600 to-blue-700">
       {/* Header com backdrop */}
       <div className="relative h-[70vh] overflow-hidden">
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent z-10" />
+        {/* Movie poster */}
+        <div className="absolute inset-0">
+          <img 
+            src={movie.poster || `https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1920&h=1080&fit=crop`}
+            alt={movie.title}
+            className="w-full h-full object-cover opacity-30"
+          />
+        </div>
         
-        {/* Background image placeholder */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20" />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
         
         {/* Content over backdrop */}
         <div className="relative z-20 flex flex-col justify-between h-full p-6">
           {/* Top navigation */}
           <div className="flex items-center justify-between">
             <Link to="/">
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+              <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 border border-white/20">
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Voltar
               </Button>
@@ -105,48 +111,48 @@ export default function Movie() {
           </div>
 
           {/* Movie info */}
-          <div className="space-y-6 max-w-2xl">
+          <div className="space-y-6 max-w-4xl">
             <div>
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
                 {movie.title}
               </h1>
               
-              <div className="flex flex-wrap items-center gap-3 mb-4">
+              <div className="flex flex-wrap items-center gap-4 mb-6">
                 {movie.released && (
-                  <Badge variant="secondary" className="bg-green-600 text-white">
+                  <div className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium">
                     {movie.released}
-                  </Badge>
+                  </div>
                 )}
                 {movie.language && (
-                  <Badge variant="outline" className="border-white text-white">
+                  <div className="border border-white/40 text-white px-4 py-2 rounded-full text-sm">
                     {movie.language}
-                  </Badge>
+                  </div>
                 )}
                 {movie.runtime && (
-                  <span className="text-white/80">{movie.runtime}</span>
+                  <span className="text-white/90 bg-black/30 px-3 py-1 rounded-full text-sm">{movie.runtime}</span>
                 )}
                 {movie.imdb_rating && (
-                  <div className="flex items-center gap-1">
-                    <span className="text-yellow-400">★</span>
-                    <span className="text-white/80">{movie.imdb_rating}</span>
+                  <div className="flex items-center gap-2 bg-yellow-500/20 px-3 py-1 rounded-full">
+                    <span className="text-yellow-400 text-lg">★</span>
+                    <span className="text-white font-semibold">{movie.imdb_rating}</span>
                   </div>
                 )}
               </div>
 
               {movie.genres && movie.genres.length > 0 && (
-                <p className="text-white/80 mb-4">
+                <p className="text-white/90 mb-6 text-lg">
                   {movie.genres.join(' • ')}
                 </p>
               )}
             </div>
 
             {/* Action buttons */}
-            <div className="flex flex-wrap gap-3">
-              <Button size="lg" className="bg-white text-black hover:bg-white/90">
+            <div className="flex flex-wrap gap-4">
+              <Button size="lg" className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold px-8 py-3 rounded-full shadow-lg">
                 <Play className="w-5 h-5 mr-2" />
-                Assistir
+                Assistir Agora
               </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/20">
+              <Button variant="outline" size="lg" className="border-2 border-white/40 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-3 rounded-full">
                 <Download className="w-5 h-5 mr-2" />
                 Baixar
               </Button>
@@ -156,98 +162,73 @@ export default function Movie() {
       </div>
 
       {/* Movie details */}
-      <div className="container mx-auto px-6 py-8">
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Main content */}
-          <div className="md:col-span-2 space-y-6">
-            {movie.plot && (
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold mb-3">Sinopse</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {movie.plot}
-                  </p>
-                </CardContent>
-              </Card>
-            )}
-
-            {(movie.actors || movie.director) && (
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold mb-4">Elenco e Equipe</h3>
-                  <div className="space-y-3">
-                    {movie.director && (
-                      <div>
-                        <span className="font-medium">Direção: </span>
-                        <span className="text-muted-foreground">{movie.director}</span>
-                      </div>
-                    )}
-                    {movie.actors && (
-                      <div>
-                        <span className="font-medium">Elenco: </span>
-                        <span className="text-muted-foreground">{movie.actors}</span>
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Quick actions */}
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-4">Ações</h3>
-                <div className="space-y-3">
-                  <Button variant="outline" className="w-full justify-start">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Minha Lista
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Bookmark className="w-4 h-4 mr-2" />
-                    Favoritar
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Share className="w-4 h-4 mr-2" />
-                    Compartilhar
-                  </Button>
-                </div>
+      <div className="container mx-auto px-6 py-12">
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* Synopsis */}
+          {movie.plot && (
+            <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold mb-6 text-white">Sinopse</h3>
+                <p className="text-white/90 leading-relaxed text-lg">
+                  {movie.plot}
+                </p>
               </CardContent>
             </Card>
+          )}
 
-            {/* Movie stats */}
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-4">Informações</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">ID do Filme</span>
-                    <span>{movie.movieId}</span>
-                  </div>
-                  {movie.released && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Lançamento</span>
-                      <span>{movie.released}</span>
+          {/* Cast and crew */}
+          {(movie.actors || movie.director) && (
+            <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold mb-6 text-white">Elenco e Equipe</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {movie.director && (
+                    <div className="space-y-2">
+                      <span className="font-semibold text-white text-lg">Direção</span>
+                      <p className="text-white/80 text-base">{movie.director}</p>
                     </div>
                   )}
-                  {movie.language && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Idioma</span>
-                      <span>{movie.language}</span>
-                    </div>
-                  )}
-                  {movie.runtime && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Duração</span>
-                      <span>{movie.runtime}</span>
+                  {movie.actors && (
+                    <div className="space-y-2">
+                      <span className="font-semibold text-white text-lg">Elenco Principal</span>
+                      <p className="text-white/80 text-base">{movie.actors}</p>
                     </div>
                   )}
                 </div>
               </CardContent>
             </Card>
-          </div>
+          )}
+
+          {/* Movie Information */}
+          <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold mb-6 text-white">Informações do Filme</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="text-center p-4 bg-white/10 rounded-lg">
+                  <span className="block text-white/70 text-sm mb-1">ID do Filme</span>
+                  <span className="text-white font-semibold text-lg">{movie.movieId}</span>
+                </div>
+                {movie.released && (
+                  <div className="text-center p-4 bg-white/10 rounded-lg">
+                    <span className="block text-white/70 text-sm mb-1">Lançamento</span>
+                    <span className="text-white font-semibold text-lg">{movie.released}</span>
+                  </div>
+                )}
+                {movie.language && (
+                  <div className="text-center p-4 bg-white/10 rounded-lg">
+                    <span className="block text-white/70 text-sm mb-1">Idioma</span>
+                    <span className="text-white font-semibold text-lg">{movie.language}</span>
+                  </div>
+                )}
+                {movie.runtime && (
+                  <div className="text-center p-4 bg-white/10 rounded-lg">
+                    <span className="block text-white/70 text-sm mb-1">Duração</span>
+                    <span className="text-white font-semibold text-lg">{movie.runtime}</span>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
