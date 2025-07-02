@@ -40,16 +40,17 @@ async function loadMovies() {
     const movieCountEl = document.getElementById('movie-count');
 
     console.log('Starting to load movies...');
+    console.log('Current URL:', window.location.href);
 
     try {
-        let response;
-        try {
-            // Primeiro tenta carregar da pasta public/
-            response = await fetch('public/movies.json');
-        } catch (e) {
-            console.log('Failed to load from public/, trying root...');
-            // Se falhar, tenta da raiz
+        console.log('Trying to load from public/movies.json...');
+        let response = await fetch('public/movies.json');
+        console.log('Response from public/movies.json:', response.status, response.statusText);
+        
+        if (!response.ok) {
+            console.log('Failed to load from public/, trying root movies.json...');
             response = await fetch('movies.json');
+            console.log('Response from movies.json:', response.status, response.statusText);
         }
         
         if (!response.ok) {

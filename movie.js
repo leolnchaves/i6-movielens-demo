@@ -12,6 +12,7 @@ async function loadMovie() {
     const movieId = getMovieIdFromUrl();
     
     console.log('Loading movie with ID:', movieId);
+    console.log('Current URL:', window.location.href);
     
     if (!movieId) {
         showError('ID do filme não fornecido');
@@ -24,14 +25,15 @@ async function loadMovie() {
 
     try {
         console.log('Fetching movies data...');
-        let response;
-        try {
-            // Primeiro tenta carregar da pasta public/
-            response = await fetch('public/movies.json');
-        } catch (e) {
-            console.log('Failed to load from public/, trying root...');
-            // Se falhar, tenta da raiz
+        console.log('Trying to load from public/movies.json...');
+        
+        let response = await fetch('public/movies.json');
+        console.log('Response from public/movies.json:', response.status, response.statusText);
+        
+        if (!response.ok) {
+            console.log('Failed to load from public/, trying root movies.json...');
             response = await fetch('movies.json');
+            console.log('Response from movies.json:', response.status, response.statusText);
         }
         
         if (!response.ok) {
