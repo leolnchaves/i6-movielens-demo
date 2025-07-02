@@ -46,20 +46,16 @@
                     header.append(sessionPlaceholder);
                 }
 
-                // Hero Section com backdrop
+                // Hero Section com imagem de fundo
                 face.append(`
-                    <div class="movie-hero">
-                        <div class="hero-backdrop" style="background-image: url('${selected.poster}')"></div>
+                    <div class="movie-hero" style="background-image: url('${selected.poster}')">
                         <div class="hero-overlay"></div>
                         <div class="hero-content">
-                            <div class="movie-poster-container">
-                                <img src="${selected.poster}" alt="${selected.title}" class="movie-poster">
+                            <div class="movie-main-info">
                                 <div class="rating-badge">
                                     <span class="rating-star">★</span>
                                     <span class="rating-value">${selected.imdb_rating}</span>
                                 </div>
-                            </div>
-                            <div class="movie-main-info">
                                 <h1 class="movie-title">${selected.title}</h1>
                                 <div class="movie-meta">
                                     <span class="release-year">${selected.released.split(' ').pop()}</span>
