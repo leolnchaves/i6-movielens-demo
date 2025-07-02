@@ -46,6 +46,11 @@
                     header.append(sessionPlaceholder);
                 }
 
+                let recs = await cmclient.getSessionRecommendation(sessionId, movieId);
+                let recommendedMovies = recs.items
+                    .map(rec => movies.find(m => m.movieId === rec.item_id))
+                    .filter(Boolean);
+
                 // Hero Section com imagem de fundo
                 face.append(`
                     <div class="movie-hero" style="background-image: url('${selected.poster}')">
@@ -67,6 +72,28 @@
                                 </div>
                                 <p class="movie-plot">${selected.plot}</p>
                             </div>
+                            ${recommendedMovies.length > 0 ? `
+                                <div class="hero-recommendations">
+                                    <h3>✨ Descobertas Personalizadas</h3>
+                                    <div class="carousel-container">
+                                        <div class="carousel-track" id="carouselTrack">
+                                            ${recommendedMovies.map(movie => `
+                                                <div class="carousel-slide">
+                                                    <a href="#movie?id=${movie.movieId}" class="carousel-card">
+                                                        <img src="${movie.poster}" alt="${movie.title}">
+                                                        <div class="card-info-overlay">
+                                                            <h4>${movie.title}</h4>
+                                                            <p class="card-rating">★ ${movie.imdb_rating}</p>
+                                                            <p class="card-genres">${movie.genres ? movie.genres.slice(0, 2).join(', ') : ''}</p>
+                                                            <p class="card-year">${movie.released ? movie.released.split(' ').pop() : ''}</p>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+                            ` : ''}
                         </div>
                     </div>
                 `);
@@ -101,48 +128,25 @@
                     </div>
                 `);
 
-                const recs = await cmclient.getSessionRecommendation(sessionId, movieId);
-                const recommendedMovies = recs.items
-                    .map(rec => movies.find(m => m.movieId === rec.item_id))
-                    .filter(Boolean); 
-
+                // Adicionar funcionalidade do carrossel
                 if (recommendedMovies.length > 0) {
-                    const recSection = $('<section class="recommendations-section"></section>');
-                    recSection.append(`
-                        <div class="recommendations-header">
-                            <h2>✨ Descobertas Personalizadas</h2>
-                            <p>Seleções especiais baseadas no seu gosto</p>
-                        </div>
-                    `);
+                    const carouselTrack = face.find('#carouselTrack');
+                    let currentIndex = 0;
+                    
+                    // Auto-scroll do carrossel
+                    setInterval(() => {
+                        currentIndex = (currentIndex + 1) % Math.max(1, recommendedMovies.length - 2);
+                        const slideWidth = 220; // largura do slide + gap
+                        carouselTrack.css('transform', `translateX(-${currentIndex * slideWidth}px)`);
+                    }, 3000);
 
-                    const recGrid = $('<div class="recommendations-grid"></div>');
-
-                    for (let movie of recommendedMovies) {
-                        const card = $(`
-                            <article class="recommendation-card">
-                                <a href="#movie?id=${movie.movieId}">
-                                    <div class="card-image-container">
-                                        <img src="${movie.poster}" alt="${movie.title}">
-                                        <div class="card-overlay">
-                                            <span class="play-icon">▶</span>
-                                        </div>
-                                    </div>
-                                    <div class="card-content">
-                                        <h4>${movie.title}</h4>
-                                        <p class="card-genres">${movie.genres ? movie.genres.slice(0, 2).join(', ') : ''}</p>
-                                    </div>
-                                </a>
-                            </article>
-                        `);
-                        card.find('a').on('click', () => {
-                            cmclient.movieEventPost(sessionId, movie.movieId); 
-                        });
-
-                        recGrid.append(card);
-                    }
-
-                    recSection.append(recGrid);
-                    face.append(recSection);
+                    // Adicionar click handlers para os cards do carrossel
+                    face.find('.carousel-card').on('click', function(e) {
+                        e.preventDefault();
+                        const movieId = $(this).attr('href').split('id=')[1];
+                        cmclient.movieEventPost(sessionId, movieId);
+                        location.hash = $(this).attr('href').substring(1);
+                    });
                 }
 
                 // Action buttons
