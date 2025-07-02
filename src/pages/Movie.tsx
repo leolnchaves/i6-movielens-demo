@@ -6,17 +6,19 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface Movie {
-  movieId: number;
+  movieId: string;
   title: string;
-  genres: string;
-  year?: number;
+  genres: string[];
+  name: string;
+  released?: string;
+  runtime?: string;
   director?: string;
   actors?: string;
   plot?: string;
-  runtime?: string;
-  rated?: string;
-  imdbRating?: number;
+  imdb_rating?: string;
   poster?: string;
+  language?: string;
+  country?: string;
 }
 
 export default function Movie() {
@@ -110,30 +112,30 @@ export default function Movie() {
               </h1>
               
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                {movie.year && (
+                {movie.released && (
                   <Badge variant="secondary" className="bg-green-600 text-white">
-                    {movie.year}
+                    {movie.released}
                   </Badge>
                 )}
-                {movie.rated && (
+                {movie.language && (
                   <Badge variant="outline" className="border-white text-white">
-                    {movie.rated}
+                    {movie.language}
                   </Badge>
                 )}
                 {movie.runtime && (
                   <span className="text-white/80">{movie.runtime}</span>
                 )}
-                {movie.imdbRating && (
+                {movie.imdb_rating && (
                   <div className="flex items-center gap-1">
                     <span className="text-yellow-400">★</span>
-                    <span className="text-white/80">{movie.imdbRating}</span>
+                    <span className="text-white/80">{movie.imdb_rating}</span>
                   </div>
                 )}
               </div>
 
-              {movie.genres && (
+              {movie.genres && movie.genres.length > 0 && (
                 <p className="text-white/80 mb-4">
-                  {movie.genres.split('|').join(' • ')}
+                  {movie.genres.join(' • ')}
                 </p>
               )}
             </div>
@@ -224,16 +226,16 @@ export default function Movie() {
                     <span className="text-muted-foreground">ID do Filme</span>
                     <span>{movie.movieId}</span>
                   </div>
-                  {movie.year && (
+                  {movie.released && (
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Ano</span>
-                      <span>{movie.year}</span>
+                      <span className="text-muted-foreground">Lançamento</span>
+                      <span>{movie.released}</span>
                     </div>
                   )}
-                  {movie.rated && (
+                  {movie.language && (
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Classificação</span>
-                      <span>{movie.rated}</span>
+                      <span className="text-muted-foreground">Idioma</span>
+                      <span>{movie.language}</span>
                     </div>
                   )}
                   {movie.runtime && (

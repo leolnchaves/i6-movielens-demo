@@ -6,13 +6,17 @@ import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
 
 interface Movie {
-  movieId: number;
+  movieId: string;
   title: string;
-  genres: string;
-  year?: number;
-  imdbRating?: number;
+  genres: string[];
+  name: string;
+  released?: string;
+  runtime?: string;
   director?: string;
+  actors?: string;
   plot?: string;
+  imdb_rating?: string;
+  poster?: string;
 }
 
 export default function Index() {
@@ -85,10 +89,10 @@ export default function Index() {
                   <CardTitle className="text-lg leading-tight line-clamp-2">
                     {movie.title}
                   </CardTitle>
-                  {movie.imdbRating && (
+                  {movie.imdb_rating && (
                     <div className="flex items-center gap-1 flex-shrink-0">
                       <span className="text-yellow-500">★</span>
-                      <span className="text-sm font-medium">{movie.imdbRating}</span>
+                      <span className="text-sm font-medium">{movie.imdb_rating}</span>
                     </div>
                   )}
                 </div>
@@ -97,15 +101,15 @@ export default function Index() {
               <CardContent className="space-y-4">
                 {/* Movie Info */}
                 <div className="space-y-2">
-                  {movie.year && (
+                  {movie.released && (
                     <Badge variant="secondary" className="text-xs">
-                      {movie.year}
+                      {movie.released}
                     </Badge>
                   )}
                   
-                  {movie.genres && (
+                  {movie.genres && movie.genres.length > 0 && (
                     <p className="text-sm text-muted-foreground line-clamp-2">
-                      {movie.genres.split('|').slice(0, 3).join(' • ')}
+                      {movie.genres.slice(0, 3).join(' • ')}
                     </p>
                   )}
                   
