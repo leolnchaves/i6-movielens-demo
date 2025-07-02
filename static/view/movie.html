@@ -46,31 +46,64 @@
                     header.append(sessionPlaceholder);
                 }
 
+                // Hero Section com backdrop
                 face.append(`
-                    <div class="movie-detail">
-                        <img src="${selected.poster}" alt="${selected.title}">
-                        <div class="movie-info">
-                            <h2>${selected.title}</h2>
-                            <p><strong>Nome:</strong> ${selected.name}</p>
-                            <p><strong>Gêneros:</strong> ${selected.genres.join(', ')}</p>
-                            <p><strong>Lançamento:</strong> ${selected.released}</p>
-                            <p><strong>Duração:</strong> ${selected.runtime}</p>
-                            <p><strong>Diretor:</strong> ${selected.director}</p>
-                            <p><strong>Roteirista:</strong> ${selected.writer}</p>
-                            <p><strong>Atores:</strong> ${selected.actors}</p>
-                            <p><strong>Idioma:</strong> ${selected.language}</p>
-                            <p><strong>País:</strong> ${selected.country}</p>
-                            <p><strong>Nota IMDb:</strong> ${selected.imdb_rating}</p>
-                            <p><strong>Prêmios:</strong> ${selected.awards}</p>
+                    <div class="movie-hero">
+                        <div class="hero-backdrop" style="background-image: url('${selected.poster}')"></div>
+                        <div class="hero-overlay"></div>
+                        <div class="hero-content">
+                            <div class="movie-poster-container">
+                                <img src="${selected.poster}" alt="${selected.title}" class="movie-poster">
+                                <div class="rating-badge">
+                                    <span class="rating-star">★</span>
+                                    <span class="rating-value">${selected.imdb_rating}</span>
+                                </div>
+                            </div>
+                            <div class="movie-main-info">
+                                <h1 class="movie-title">${selected.title}</h1>
+                                <div class="movie-meta">
+                                    <span class="release-year">${selected.released.split(' ').pop()}</span>
+                                    <span class="runtime">⏱️ ${selected.runtime}</span>
+                                    <span class="language">🌍 ${selected.language}</span>
+                                </div>
+                                <div class="genre-tags">
+                                    ${selected.genres.map(genre => `<span class="genre-tag">${genre}</span>`).join('')}
+                                </div>
+                                <p class="movie-plot">${selected.plot}</p>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div>
-                        <p><strong>Sinopse:</strong></p>
-                        <p>${selected.plot}</p>
                     </div>
                 `);
 
+                // Movie Details Section
+                face.append(`
+                    <div class="movie-details">
+                        <div class="details-grid">
+                            <div class="detail-card cast-card">
+                                <h3>🎭 Elenco Principal</h3>
+                                <p>${selected.actors}</p>
+                            </div>
+                            <div class="detail-card crew-card">
+                                <h3>🎬 Equipe</h3>
+                                <div class="crew-info">
+                                    <p><strong>Diretor:</strong> ${selected.director}</p>
+                                    <p><strong>Roteirista:</strong> ${selected.writer}</p>
+                                </div>
+                            </div>
+                            <div class="detail-card production-card">
+                                <h3>🏭 Produção</h3>
+                                <div class="production-info">
+                                    <p><strong>País:</strong> ${selected.country}</p>
+                                    <p><strong>Lançamento:</strong> ${selected.released}</p>
+                                </div>
+                            </div>
+                            <div class="detail-card awards-card">
+                                <h3>🏆 Reconhecimentos</h3>
+                                <p>${selected.awards}</p>
+                            </div>
+                        </div>
+                    </div>
+                `);
 
                 const recs = await cmclient.getSessionRecommendation(sessionId, movieId);
                 const recommendedMovies = recs.items
@@ -78,17 +111,30 @@
                     .filter(Boolean); 
 
                 if (recommendedMovies.length > 0) {
-                    const recSection = $('<section class="recommended-section"></section>');
-                    recSection.append('<h3>Recommended for you</h3>');
+                    const recSection = $('<section class="recommendations-section"></section>');
+                    recSection.append(`
+                        <div class="recommendations-header">
+                            <h2>✨ Descobertas Personalizadas</h2>
+                            <p>Seleções especiais baseadas no seu gosto</p>
+                        </div>
+                    `);
 
-                    const recGrid = $('<div class="movie-grid"></div>');
+                    const recGrid = $('<div class="recommendations-grid"></div>');
 
                     for (let movie of recommendedMovies) {
                         const card = $(`
-                            <article class="movie-card">
+                            <article class="recommendation-card">
                                 <a href="#movie?id=${movie.movieId}">
-                                    <img src="${movie.poster}" alt="${movie.title}">
-                                    <div>${movie.title}</div>
+                                    <div class="card-image-container">
+                                        <img src="${movie.poster}" alt="${movie.title}">
+                                        <div class="card-overlay">
+                                            <span class="play-icon">▶</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>${movie.title}</h4>
+                                        <p class="card-genres">${movie.genres ? movie.genres.slice(0, 2).join(', ') : ''}</p>
+                                    </div>
                                 </a>
                             </article>
                         `);
@@ -100,17 +146,21 @@
                     }
 
                     recSection.append(recGrid);
-                    face.append('<hr>');
                     face.append(recSection);
                 }
 
+                // Action buttons
+                face.append(`
+                    <div class="action-section">
+                        <button class="action-btn home-btn">
+                            🏠 Explorar Mais Filmes
+                        </button>
+                    </div>
+                `);
 
-                let backButton = $('<button>Voltar para home</button>');
-                backButton.on('click', () => {
+                face.find('.home-btn').on('click', () => {
                     location.hash = 'home';
                 });
-
-                face.append(backButton);
             };
         })
     </script>
