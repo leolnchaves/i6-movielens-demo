@@ -1,0 +1,201 @@
+<html>
+
+<body>
+
+    <section id="home">
+        <header id="home-header">
+            <form id="search-form" role="search">
+                <input type="search" id="search-input" placeholder="Search for movies..." />
+                <button type="submit">Search</button>
+            </form>
+
+            <h3 class="genre-heading">
+                Filter by Genre
+            </h3>
+            <div class="selected-genres"></div>
+
+        </header>
+
+        <main id="home-face"></main>
+        <footer id="home-footer"></footer>
+    </section>
+
+    <script>
+        paginateMovies = (movies, page, pageSize = 20) => {
+            const start = (page - 1) * pageSize;
+            return movies.slice(start, start + pageSize);
+        }
+
+        renderMovieGrid = (container, movies, sessionId) => {
+            const grid = $('<div class="movie-grid"></div>');
+
+            for (let movie of movies) {
+                const card = $(`
+                    <article class="movie-card">
+                        <a href="#movie?id=${movie.movieId}">
+                            <img src="${movie.poster}" alt="${movie.title}">
+                            <div>${movie.title}</div>
+                        </a>
+                    </article>
+                `);
+                card.find('a').on('click', () => {
+                    cmclient.movieEventPost(sessionId, movie.movieId);
+                });
+                grid.append(card);
+            }
+
+            container.append(grid);
+        }
+
+        renderPagination = (container, currentPage, totalPages) => {
+            const nav = $('<nav class="pagination-nav"></nav>');
+
+            if (currentPage > 1) {
+                const prev = $('<button>&lt; Anterior</button>').on('click', () => {
+                    updatePageInHash(currentPage - 1);
+                });
+                nav.append(prev);
+            }
+
+            nav.append(` Página ${currentPage} de ${totalPages} `);
+
+            if (currentPage < totalPages) {
+                const next = $('<button>Próxima &gt;</button>').on('click', () => {
+                    updatePageInHash(currentPage + 1);
+                });
+                nav.append(next);
+            }
+
+            container.append(nav);
+        }
+
+        updatePageInHash = (newPage) => {
+            const hash = location.hash;
+            const [base, queryString] = hash.slice(1).split('?');
+            const params = new URLSearchParams(queryString || '');
+            params.set('page', newPage);
+            location.hash = `${base}?${params.toString()}`;
+        }
+
+        getCurrentPageFromHash = () => {
+            const hash = location.hash;
+            const match = hash.match(/page=([^&]+)/);
+            if (!match) return 1;
+            const parsed = parseInt(match[1]);
+            return isNaN(parsed) ? 1 : parsed;
+        }
+
+        getSelectedGenresFromHash = () => {
+            const hash = location.hash;
+            const match = hash.match(/genre=([^&]+)/);
+            if (!match) return [];
+            return decodeURIComponent(match[1]).split(',').filter(Boolean);
+        }
+
+        setSelectedGenresInHash = (genres) => {
+            const encoded = encodeURIComponent(genres.join(','));
+            location.hash = `home?genre=${encoded}`;
+        }
+
+        toggleGenreInList = (list, genre) => {
+            return list.includes(genre)
+                ? list.filter(g => g !== genre)
+                : [...list, genre];
+        }
+
+        filterMoviesByGenres = (movies, selectedGenres) => {
+            if (selectedGenres.length === 0) {
+                return movies;
+            }
+
+            return movies.filter(movie =>
+                movie.genres.some(genre => selectedGenres.includes(genre))
+            );
+        }
+
+        renderGenreButtons = (selectedGenres, genres) => {
+            const genreButtons = $('<div>').addClass('genre-buttons');
+
+            for (let genre of genres) {
+                const btn = $('<button>').addClass('genre-btn')
+                    .text(genre)
+                    .on('click', () => {
+                        const updatedGenres = toggleGenreInList(selectedGenres, genre);
+                        setSelectedGenresInHash(updatedGenres);
+                    });
+
+                if (selectedGenres.includes(genre)) {
+                    btn.attr('data-active', 'true');
+                }
+
+                genreButtons.append(btn);
+            }
+
+            return genreButtons;
+        };
+
+
+
+        (async ($, $ff, sections) => {
+            const home = sections('home');
+
+            return async (query) => {
+                const layout = await $ff('comp/layout.html')
+                const movies = await cmclient.getMovies();
+                const header = layout.getHeader();
+                let face = layout.getFace();
+
+                // ################################
+                // Header
+                // ################################
+                if (header.find('#home-header').length === 0) {
+                    layout.header($(home()).find('#home-header'));
+                }
+
+                const sessionId = localStorage.getItem('sessionId');
+
+                if (header.find('.session-id').length > 0) {
+                    header.find('.session-id').remove();
+                }
+                const sessionPlaceholder = $(`<span class="session-id">Sessão: ${sessionId}</span>`);
+                header.append(sessionPlaceholder);
+
+                if (header.find('.genre-buttons').length > 0) {
+                    header.find('.genre-buttons').remove();
+                }
+
+                let allGenres = cmclient.extractUniqueGenres(movies);
+                let selectedGenres = getSelectedGenresFromHash();
+                header.append(renderGenreButtons(selectedGenres, allGenres));
+
+                let selectedText = selectedGenres.length
+                    ? `Selected genres: ${selectedGenres.join(', ')}`
+                    : 'No genres selected';
+
+                if (header.find('.selected-genres').length > 0) {
+                    header.find('.selected-genres').text(selectedText);
+                } else {
+                    const selectedDiv = $('<div class="selected-genres"></div>').text(selectedText);
+                    header.append(selectedDiv);
+                }
+
+                // ################################
+                // Genres List
+                // ################################
+
+                layout.face($(home()).find('#home-face'));
+
+                let filteredMovies = filterMoviesByGenres(movies, selectedGenres);
+                let currentPage = getCurrentPageFromHash();
+                let pageSize = 20;
+                let totalPages = Math.ceil(filteredMovies.length / pageSize);
+                let moviesPage = paginateMovies(filteredMovies, currentPage, pageSize);
+
+                renderMovieGrid(face, moviesPage, sessionId);
+                renderPagination(face, currentPage, totalPages);
+            };
+        })
+    </script>
+</body>
+
+</html>

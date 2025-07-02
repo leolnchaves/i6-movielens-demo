@@ -1,0 +1,7 @@
+runtime: go122
+service: customermovielens
+
+env_variables:
+
+  I6_BOX_CONFIG_ENCODED: "--I6_BOX_CONFIG_ENCODED--"
+  I6_CUSTOMERMOVIELENS_PRIV_KEY_ENCODED: "--I6_CUSTOMERMOVIELENS_PRIV_KEY_ENCODED--"

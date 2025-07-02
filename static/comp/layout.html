@@ -1,0 +1,61 @@
+<html>
+
+<body>
+
+    <section id="ff-header">
+
+    </section>
+
+    <section id="ff-face">
+
+    </section>
+
+    <section id="ff-footer">
+
+    </section>
+
+
+    <script>
+        (async ($, $ff, sections) => {
+            let header = sections('ff-header')
+            let face = sections('ff-face')
+            let footer = sections('ff-footer')
+
+            let mainLayout = $('#wrapper').empty();
+            mainLayout.append(header())
+            mainLayout.append(face())
+            mainLayout.append(footer())
+
+            class DashLayout {
+                header(header) {
+                    mainLayout.find('#ff-header').html(header)
+                    return this
+                }
+                face(face) {
+                    mainLayout.find('#ff-face').html(face)
+                    return this
+                }
+                footer(footer) {
+                    mainLayout.find('#ff-footer').html(footer)
+                    return this
+                }
+                getHeader() {
+                    return mainLayout.find('#ff-header')
+                }
+                getFace() {
+                    return mainLayout.find('#ff-face')
+                }
+                getFooter() {
+                    return mainLayout.find('#ff-footer')
+                }
+                getPage() {
+                    return mainLayout
+                }
+            }
+
+            return new DashLayout()
+        })
+    </script>
+</body>
+
+</html>

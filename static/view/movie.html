@@ -1,0 +1,120 @@
+<html>
+
+<body>
+    <section id="movie">
+    </section>
+
+    <script>
+        getMovieIdFromHash = () => {
+            const hash = location.hash;
+            const match = hash.match(/id=([^&]+)/);
+            return match ? decodeURIComponent(match[1]) : null;
+        }
+
+        (async ($, $ff, sections) => {
+            const movie = sections('movie');
+
+            return async (query) => {
+                let layout = await $ff('comp/layout.html');
+                layout.face(movie());
+                layout.header($());
+
+                let face = layout.getFace();
+                let header = layout.getHeader();
+
+                let movieId = getMovieIdFromHash();
+
+                if (!movieId) {
+                    location.hash = 'home';
+                    return;
+                }
+
+                let movies = await cmclient.getMovies();
+                let selected = movies.find(m => m.movieId === movieId);
+
+                if (!selected) {
+                    location.hash = 'home';
+                    return;
+                }
+
+                let sessionId = localStorage.getItem('sessionId');
+                let sessionPlaceholder = header.find('.session-id')
+
+                if (!sessionPlaceholder.length) {
+                    sessionPlaceholder = $('<span class="session-id"></span>');
+                    sessionPlaceholder.text(`Sessão: ${sessionId || 'Nenhuma'}`);
+                    header.append(sessionPlaceholder);
+                }
+
+                face.append(`
+                    <div class="movie-detail">
+                        <img src="${selected.poster}" alt="${selected.title}">
+                        <div class="movie-info">
+                            <h2>${selected.title}</h2>
+                            <p><strong>Nome:</strong> ${selected.name}</p>
+                            <p><strong>Gêneros:</strong> ${selected.genres.join(', ')}</p>
+                            <p><strong>Lançamento:</strong> ${selected.released}</p>
+                            <p><strong>Duração:</strong> ${selected.runtime}</p>
+                            <p><strong>Diretor:</strong> ${selected.director}</p>
+                            <p><strong>Roteirista:</strong> ${selected.writer}</p>
+                            <p><strong>Atores:</strong> ${selected.actors}</p>
+                            <p><strong>Idioma:</strong> ${selected.language}</p>
+                            <p><strong>País:</strong> ${selected.country}</p>
+                            <p><strong>Nota IMDb:</strong> ${selected.imdb_rating}</p>
+                            <p><strong>Prêmios:</strong> ${selected.awards}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <p><strong>Sinopse:</strong></p>
+                        <p>${selected.plot}</p>
+                    </div>
+                `);
+
+
+                const recs = await cmclient.getSessionRecommendation(sessionId, movieId);
+                const recommendedMovies = recs.items
+                    .map(rec => movies.find(m => m.movieId === rec.item_id))
+                    .filter(Boolean); 
+
+                if (recommendedMovies.length > 0) {
+                    const recSection = $('<section class="recommended-section"></section>');
+                    recSection.append('<h3>Recommended for you</h3>');
+
+                    const recGrid = $('<div class="movie-grid"></div>');
+
+                    for (let movie of recommendedMovies) {
+                        const card = $(`
+                            <article class="movie-card">
+                                <a href="#movie?id=${movie.movieId}">
+                                    <img src="${movie.poster}" alt="${movie.title}">
+                                    <div>${movie.title}</div>
+                                </a>
+                            </article>
+                        `);
+                        card.find('a').on('click', () => {
+                            cmclient.movieEventPost(sessionId, movie.movieId); 
+                        });
+
+                        recGrid.append(card);
+                    }
+
+                    recSection.append(recGrid);
+                    face.append('<hr>');
+                    face.append(recSection);
+                }
+
+
+                let backButton = $('<button>Voltar para home</button>');
+                backButton.on('click', () => {
+                    location.hash = 'home';
+                });
+
+                face.append(backButton);
+            };
+        })
+    </script>
+
+</body>
+
+</html>

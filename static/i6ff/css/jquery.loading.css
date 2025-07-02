@@ -1,0 +1,51 @@
+/*--
+.loading { cursor: wait; display: block; height: 100%; left: 0; position: absolute; top: 0; width: 100%; z-index: 999999; }
+--*/
+.loading {
+    cursor: wait;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999999;
+}
+
+.loading .loading-overlay {
+    background-color: #efe7df;
+    height: 100%;
+    left: 0;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.loading .loading-panel {
+    margin-top: 100px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 60%;
+}
+
+.loading .loading-panel ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background: transparent url("../../assets/images/loading.gif") no-repeat scroll center top;
+    padding-top: 60px;
+    min-height: 100px;
+    background-size: 75px;
+}
+
+.loading li {
+    margin-top: 5px;
+}
+
+.loading .loading-loaded {
+    color: #aaa
+}
