@@ -19,47 +19,10 @@
 
         <main id="contactus-face">
             <div class="contact-container">
-                <div class="contact-grid">
-                    <!-- Formulário de Contato -->
-                    <div class="contact-form-section">
-                        <h2 class="section-title">Envie sua Mensagem</h2>
-                        <form id="contact-form" class="contact-form">
-                            <div class="form-group">
-                                <label for="name">Nome Completo</label>
-                                <input type="text" id="name" name="name" required placeholder="Seu nome completo">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input type="email" id="email" name="email" required placeholder="seu@email.com">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="subject">Assunto</label>
-                                <select id="subject" name="subject" required>
-                                    <option value="">Selecione um assunto</option>
-                                    <option value="support">Suporte Técnico</option>
-                                    <option value="feedback">Feedback</option>
-                                    <option value="partnership">Parceria</option>
-                                    <option value="other">Outros</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="message">Mensagem</label>
-                                <textarea id="message" name="message" required placeholder="Digite sua mensagem aqui..." rows="5"></textarea>
-                            </div>
-                            
-                            <button type="submit" class="submit-btn">
-                                <span>Enviar Mensagem</span>
-                                <span class="btn-icon">📧</span>
-                            </button>
-                        </form>
-                    </div>
-
+                <div class="contact-content">
                     <!-- Informações de Contato -->
                     <div class="contact-info-section">
-                        <h2 class="section-title">Outras Formas de Contato</h2>
+                        <h2 class="section-title">Como Entrar em Contato</h2>
                         
                         <div class="contact-cards">
                             <div class="contact-card">
@@ -139,27 +102,6 @@
                 }
                 const sessionPlaceholder = $(`<span class="session-id">Sessão: ${sessionId}</span>`);
                 header.append(sessionPlaceholder);
-
-                // Form submission handler
-                face.find('#contact-form').on('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const formData = {
-                        name: face.find('#name').val(),
-                        email: face.find('#email').val(),
-                        subject: face.find('#subject').val(),
-                        message: face.find('#message').val()
-                    };
-
-                    // Simulate form submission
-                    face.find('.submit-btn').text('Enviando...').prop('disabled', true);
-                    
-                    setTimeout(() => {
-                        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-                        face.find('#contact-form')[0].reset();
-                        face.find('.submit-btn').html('<span>Enviar Mensagem</span><span class="btn-icon">📧</span>').prop('disabled', false);
-                    }, 1500);
-                });
 
                 // Chat button handler
                 face.find('.chat-btn').on('click', function() {
