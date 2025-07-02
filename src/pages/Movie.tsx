@@ -55,7 +55,7 @@ export default function Movie() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-500 via-purple-600 to-blue-700 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-orange-400 via-blue-500 to-emerald-400 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-pulse">
             <div className="w-16 h-16 bg-white/20 rounded-full mx-auto mb-4"></div>
@@ -68,7 +68,7 @@ export default function Movie() {
 
   if (error || !movie) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-500 via-purple-600 to-blue-700 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-orange-400 via-blue-500 to-emerald-400 flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-6 text-white">{error || 'Filme não encontrado'}</h2>
           <Link to="/">
@@ -83,7 +83,7 @@ export default function Movie() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-500 via-purple-600 to-blue-700">
+    <div className="min-h-screen bg-gradient-to-br from-orange-400 via-blue-500 to-emerald-400">
       {/* Header com backdrop */}
       <div className="relative h-[70vh] overflow-hidden">
         {/* Movie poster */}
