@@ -62,7 +62,7 @@ body {
 }
 
 #search-form button {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #f15a22, #f99d1c);
     border: none;
     padding: 15px 30px;
     border-radius: 50px;
@@ -70,13 +70,13 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 25px rgba(241, 90, 34, 0.3);
 }
 
 #search-form button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
-    background: linear-gradient(135deg, #764ba2, #667eea);
+    box-shadow: 0 12px 30px rgba(241, 90, 34, 0.4);
+    background: linear-gradient(135deg, #f99d1c, #f15a22);
 }
 
 /* Genre Section */
@@ -117,9 +117,9 @@ body {
 }
 
 .genre-btn[data-active="true"] {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    border-color: #667eea;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    background: linear-gradient(135deg, #f15a22, #f99d1c);
+    border-color: #f15a22;
+    box-shadow: 0 8px 25px rgba(241, 90, 34, 0.3);
 }
 
 .selected-genres {
@@ -204,22 +204,22 @@ body {
 }
 
 .pagination-nav button {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #f15a22, #f99d1c);
     border: none;
     padding: 12px 25px;
-    border-radius: 25px;
+    border-radius: 50px;
     color: #fff;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 0 10px;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 25px rgba(241, 90, 34, 0.3);
 }
 
 .pagination-nav button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
-    background: linear-gradient(135deg, #764ba2, #667eea);
+    box-shadow: 0 12px 30px rgba(241, 90, 34, 0.4);
+    background: linear-gradient(135deg, #f99d1c, #f15a22);
 }
 
 .pagination-nav button:disabled {
