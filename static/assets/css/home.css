@@ -1,28 +1,13 @@
-/* Reset e base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background: 
-        radial-gradient(circle at top left, rgba(220, 38, 38, 0.9) 0%, transparent 50%),
-        radial-gradient(circle at bottom left, rgba(37, 99, 235, 0.9) 0%, transparent 50%),
-        radial-gradient(circle at top right, rgba(0, 0, 0, 0.9) 0%, transparent 50%),
-        radial-gradient(circle at bottom right, rgba(234, 88, 12, 0.9) 0%, transparent 50%),
-        linear-gradient(135deg, rgba(185, 28, 28, 0.8) 0%, rgba(29, 78, 216, 0.8) 25%, rgba(0, 0, 0, 0.8) 50%, rgba(194, 65, 12, 0.8) 75%, rgba(124, 45, 18, 0.8) 100%);
+#home {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
     min-height: 100vh;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: #ffffff;
     overflow-x: hidden;
 }
 
-#home {
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-}
 
 /* Header Section */
 #home-header {
@@ -268,11 +253,11 @@ body {
         margin: 30px;
         padding: 30px;
     }
-    
+
     #home-face {
         padding: 0 30px;
     }
-    
+
     .movie-grid {
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         gap: 20px;
@@ -284,29 +269,29 @@ body {
         margin: 20px;
         padding: 25px;
     }
-    
+
     #home-face {
         padding: 0 20px;
     }
-    
+
     .movie-grid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 15px;
     }
-    
+
     #search-form {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     #search-form button {
         width: 100%;
     }
-    
+
     .genre-buttons {
         justify-content: center;
     }
-    
+
     .session-id {
         position: static;
         margin-top: 20px;
@@ -319,20 +304,20 @@ body {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 12px;
     }
-    
+
     .movie-card img {
         height: 200px;
     }
-    
+
     .movie-card div {
         padding: 10px;
         font-size: 12px;
     }
-    
+
     .pagination-nav {
         padding: 20px;
     }
-    
+
     .pagination-nav button {
         padding: 10px 20px;
         font-size: 14px;
