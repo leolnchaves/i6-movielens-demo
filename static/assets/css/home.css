@@ -14,9 +14,9 @@
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     border-radius: 25px;
-    padding-top: 40px;
+    padding-top: 20px;
     padding-inline: 20px;
-    margin: 30px;
+    margin: 10px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
@@ -25,7 +25,6 @@
 #search-form {
     display: flex;
     gap: 15px;
-    margin-bottom: 30px;
     align-items: center;
 }
 
@@ -373,4 +372,46 @@
         padding: 10px 20px;
         font-size: 14px;
     }
+}
+
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.brand-box {
+    background-color: transparent;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    padding: 10px 0px;
+    max-height: 70px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.brand-box span{
+    font-size: 30px;
+    color: #fff;
+    margin-right: 20px;
+}
+
+.brand-logo {
+    height: 90px;
+    object-fit: contain;
+    display: block;
+}
+
+
+#search-form {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+    max-width: 450px;
 }

@@ -4,10 +4,18 @@
 
     <section id="home">
         <header id="home-header">
-            <form id="search-form" role="search">
-                <input type="search" id="search-input" placeholder="Search for movies..." />
-                <button type="submit">Search</button>
-            </form>
+            <div class="header-top">
+                <div class="brand-box">
+                    <img src="./assets/images/white-i6logo-full.png" alt="Infinity6 Logo" class="brand-logo"></img>
+                    <span> RaaS Session-Based </span>
+                </div>
+
+                <form id="search-form" role="search">
+                    <input type="search" id="search-input" placeholder="Search for movies..." />
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
 
             <h3 class="genre-heading">
                 Filter by Genre
@@ -182,8 +190,8 @@
                 if (header.find('.session-id').length > 0) {
                     header.find('.session-id').remove();
                 }
-                const sessionPlaceholder = $(`<span class="session-id">Sessão: ${sessionId}</span>`);
-                header.append(sessionPlaceholder);
+                // const sessionPlaceholder = $(`<span class="session-id">Sessão: ${sessionId}</span>`);
+                // header.append(sessionPlaceholder);
 
                 if (header.find('.genre-buttons').length > 0) {
                     header.find('.genre-buttons').remove();
