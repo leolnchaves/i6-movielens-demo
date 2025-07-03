@@ -221,10 +221,11 @@
 }
 
 /* Action Section */
+/* 
 .action-section {
     text-align: center;
     padding: 60px;
-}
+} */
 
 .action-btn {
     background: linear-gradient(135deg, #f15a22, #f99d1c);
