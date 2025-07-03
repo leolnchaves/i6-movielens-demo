@@ -144,49 +144,32 @@
                     `);
                 }
 
-                // // Movie Details Section
-                // face.append(`
-                //     <div class="movie-details">
-                //         <div class="details-grid">
-                //             <div class="detail-card cast-card">
-                //                 <h3><span class="material-symbols-outlined">theater_comedy</span> Elenco Principal</h3>
-                //                 <p>${selected.actors}</p>
-                //             </div>
-                //             <div class="detail-card crew-card">
-                //                 <h3><span class="material-symbols-outlined">movie</span> Equipe</h3>
-                //                 <div class="crew-info">
-                //                     <p><strong>Diretor:</strong> ${selected.director}</p>
-                //                     <p><strong>Roteirista:</strong> ${selected.writer}</p>
-                //                 </div>
-                //             </div>
-                //             <div class="detail-card production-card">
-                //                 <h3><span class="material-symbols-outlined">location_city</span> Produção</h3>
-                //                 <div class="production-info">
-                //                     <p><strong>País:</strong> ${selected.country}</p>
-                //                     <p><strong>Lançamento:</strong> ${selected.released}</p>
-                //                 </div>
-                //             </div>
-                //             <div class="detail-card awards-card">
-                //                 <h3><span class="material-symbols-outlined">emoji_events</span> Reconhecimentos</h3>
-                //                 <p>${selected.awards}</p>
-                //             </div>
-                //         </div>
-                //     </div>
-                // `);
-
                 // Adicionar funcionalidade do carrossel
                 if (recommendedMovies.length > 0) {
                     const carouselTrack = face.find('#carouselTrack');
+                    const slideWidth = 220; 
+                    carouselTrack.append(carouselTrack.html());
+
                     let currentIndex = 0;
 
-                    // Auto-scroll do carrossel
                     setInterval(() => {
-                        currentIndex = (currentIndex + 1) % Math.max(1, recommendedMovies.length - 2);
-                        const slideWidth = 220; // largura do slide + gap
-                        carouselTrack.css('transform', `translateX(-${currentIndex * slideWidth}px)`);
-                    }, 3000);
+                        currentIndex++;
+                        carouselTrack.css({
+                            transform: `translateX(-${currentIndex * slideWidth}px)`,
+                            transition: 'transform 0.5s ease'
+                        });
 
-                    // Adicionar click handlers para os cards do carrossel
+                        if (currentIndex >= recommendedMovies.length) {
+                            setTimeout(() => {
+                                carouselTrack.css({
+                                    transform: `translateX(0px)`,
+                                    transition: 'none'
+                                });
+                                currentIndex = 0;
+                            }, 500); // espera o scroll terminar antes de resetar
+                        }
+                    }, 2500);
+
                     face.find('.carousel-card').on('click', function (e) {
                         e.preventDefault();
                         const movieId = $(this).attr('href').split('id=')[1];
