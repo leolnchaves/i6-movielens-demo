@@ -7,11 +7,11 @@
 /* Hero Section */
 .movie-hero {
     position: relative;
-    height: 100vh;
+    height: 40vh;
+    min-height: fit-content;
     display: flex;
     align-items: center;
     overflow: hidden;
-    margin-bottom: 60px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -157,7 +157,7 @@
 
 /* Details Section */
 .movie-details {
-    padding: 0 60px 60px;
+    padding: 20px 60px 60px;
 }
 
 .details-grid {
@@ -189,9 +189,9 @@
 }
 
 .detail-card:hover {
-    transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    /* transform: translateY(-10px); */
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .detail-card h3 {
@@ -363,6 +363,33 @@
     line-height: 1;
     vertical-align: middle;
     margin-right: 6px;
+}
+
+.movie-page-topbar {
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid #222;
+    z-index: 10;
+    position: relative;
+}
+
+.movie-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.movie-brand-logo {
+    height: 36px;
+}
+
+.movie-brand-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 0.3px;
 }
 
 /* Responsive Design */
