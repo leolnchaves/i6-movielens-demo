@@ -127,6 +127,19 @@
             );
         }
 
+        filterMoviesBySearchTerm = (movies, searchTerm) => {
+            if (!searchTerm || searchTerm.trim() === "") return movies;
+
+            const term = searchTerm.trim().toLowerCase();
+
+            return movies.filter(movie => {
+                const titleMatch = movie.title?.toLowerCase().includes(term);
+                const genreMatch = Array.isArray(movie.genres) && movie.genres.some(g => g.toLowerCase().includes(term));
+                const overviewMatch = movie.overview?.toLowerCase().includes(term);  // se tiver overview
+                return titleMatch || genreMatch || overviewMatch;
+            });
+        };
+
         renderGenreButtons = (selectedGenres, genres) => {
             const genreButtons = $('<div>').addClass('genre-buttons');
 
@@ -218,14 +231,35 @@
 
                 layout.face($(home()).find('#home-face'));
 
-                let filteredMovies = filterMoviesByGenres(movies, selectedGenres);
-                let currentPage = getCurrentPageFromHash();
-                let pageSize = 16;
-                let totalPages = Math.ceil(filteredMovies.length / pageSize);
-                let moviesPage = paginateMovies(filteredMovies, currentPage, pageSize);
+                let searchTerm = '';
+                const searchForm = document.getElementById('search-form');
 
-                renderMovieGrid(face, moviesPage, sessionId);
-                renderPagination(face, currentPage, totalPages);
+                if (searchForm) {
+                    searchForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+
+                        const searchInput = document.getElementById('search-input');
+                        searchTerm = searchInput.value;
+
+                        renderMovies();
+                    });
+                }
+
+                renderMovies = () => {
+                    const currentPage = getCurrentPageFromHash();  // aqui pega a página da URL/hash
+                    let filteredMovies = filterMoviesByGenres(movies, selectedGenres);
+                    filteredMovies = filterMoviesBySearchTerm(filteredMovies, searchTerm);
+
+                    face.empty();
+
+                    const totalPages = Math.ceil(filteredMovies.length / 16);
+                    const moviesPage = paginateMovies(filteredMovies, currentPage, 16);
+
+                    renderMovieGrid(face, moviesPage, sessionId);
+                    renderPagination(face, currentPage, totalPages);
+                }
+
+                renderMovies();
             };
         })
     </script>
