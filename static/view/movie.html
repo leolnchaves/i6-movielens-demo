@@ -147,29 +147,53 @@
                 // Adicionar funcionalidade do carrossel
                 if (recommendedMovies.length > 0) {
                     const carouselTrack = face.find('#carouselTrack');
-                    const slideWidth = 220; 
+                    const carouselContainer = face.find('.carousel-container');
+                    const slideWidth = 220;
+
+                    // DUPLICA os slides no DOM para loop infinito
                     carouselTrack.append(carouselTrack.html());
 
                     let currentIndex = 0;
 
-                    setInterval(() => {
-                        currentIndex++;
+                    const scrollToIndex = (index, animated = true) => {
                         carouselTrack.css({
-                            transform: `translateX(-${currentIndex * slideWidth}px)`,
-                            transition: 'transform 0.5s ease'
+                            transform: `translateX(-${index * slideWidth}px)`,
+                            transition: animated ? 'transform 0.5s ease' : 'none'
                         });
+                    };
 
+                    const resetIfNeeded = () => {
                         if (currentIndex >= recommendedMovies.length) {
                             setTimeout(() => {
-                                carouselTrack.css({
-                                    transform: `translateX(0px)`,
-                                    transition: 'none'
-                                });
                                 currentIndex = 0;
-                            }, 500); // espera o scroll terminar antes de resetar
+                                scrollToIndex(currentIndex, false);
+                            }, 500);
                         }
-                    }, 2500);
+                    };
 
+                    setInterval(() => {
+                        currentIndex++;
+                        scrollToIndex(currentIndex);
+                        resetIfNeeded();
+                    }, 3000);
+
+                    // Scroll de mouse (mousewheel ou trackpad horizontal)
+                    carouselContainer.on('wheel', (e) => {
+                        e.preventDefault();
+
+                        const delta = e.originalEvent.deltaY || e.originalEvent.deltaX;
+
+                        // Move para direita se scroll positivo, esquerda se negativo
+                        if (delta > 0) {
+                            currentIndex++;
+                        } else {
+                            currentIndex = currentIndex > 0 ? currentIndex - 1 : 0;
+                        }
+                        scrollToIndex(currentIndex);
+                        resetIfNeeded();
+                    });
+
+                    // Click nos cards
                     face.find('.carousel-card').on('click', function (e) {
                         e.preventDefault();
                         const movieId = $(this).attr('href').split('id=')[1];
