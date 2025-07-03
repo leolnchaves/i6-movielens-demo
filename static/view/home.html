@@ -199,8 +199,6 @@
             renderPagination(face, currentPage, totalPages);
         }
 
-
-
         (async ($, $ff, sections) => {
             const home = sections('home');
 
@@ -255,7 +253,7 @@
                         const searchInput = document.getElementById('search-input');
                         searchTerm = searchInput.value;
 
-                        renderMovies();
+                        renderMovies(face, sessionId, selectedGenres, movies, searchTerm, 16);
                     });
                 }
 

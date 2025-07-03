@@ -58,14 +58,14 @@
                         <div class="hero-content">
                             <div class="movie-main-info">
                                 <div class="rating-badge">
-                                    <span class="rating-star">★</span>
+                                    <span class="material-symbols-outlined">star</span>
                                     <span class="rating-value">${selected.imdb_rating}</span>
                                 </div>
                                 <h1 class="movie-title">${selected.title}</h1>
                                 <div class="movie-meta">
-                                    <span class="release-year">${selected.released.split(' ').pop()}</span>
-                                    <span class="runtime">⏱️ ${selected.runtime}</span>
-                                    <span class="language">🌍 ${selected.language}</span>
+                                    <span class="release-year"><span class="material-symbols-outlined">calendar_month</span>${selected.released.split(' ').pop()}</span>
+                                    <span class="runtime"><span class="material-symbols-outlined">schedule</span> ${selected.runtime}</span>
+                                    <span class="language"><span class="material-symbols-outlined">public</span> ${selected.language}</span>
                                 </div>
                                 <div class="genre-tags">
                                     ${selected.genres.map(genre => `<span class="genre-tag">${genre}</span>`).join('')}
@@ -76,11 +76,15 @@
                     </div>
                 `);
 
-                // Seção de Recomendações abaixo da Hero
                 if (recommendedMovies.length > 0) {
                     face.append(`
                         <div class="hero-recommendations">
-                            <h3>✨ Descobertas Personalizadas</h3>
+                            <h3>
+                                <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">
+                                    auto_awesome
+                                </span>
+                                Descobertas Personalizadas
+                            </h3>
                             <div class="carousel-container">
                                 <div class="carousel-track" id="carouselTrack">
                                     ${recommendedMovies.map(movie => `
@@ -89,7 +93,12 @@
                                                 <img src="${movie.poster}" alt="${movie.title}">
                                                 <div class="card-info-overlay">
                                                     <h4>${movie.title}</h4>
-                                                    <p class="card-rating">★ ${movie.imdb_rating}</p>
+                                                    <p class="card-rating">
+                                                        <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">
+                                                            star
+                                                        </span>
+                                                        ${movie.imdb_rating}
+                                                    </p>
                                                     <p class="card-genres">${movie.genres ? movie.genres.slice(0, 2).join(', ') : ''}</p>
                                                     <p class="card-year">${movie.released ? movie.released.split(' ').pop() : ''}</p>
                                                 </div>
@@ -107,25 +116,25 @@
                     <div class="movie-details">
                         <div class="details-grid">
                             <div class="detail-card cast-card">
-                                <h3>🎭 Elenco Principal</h3>
+                                <h3><span class="material-symbols-outlined">theater_comedy</span> Elenco Principal</h3>
                                 <p>${selected.actors}</p>
                             </div>
                             <div class="detail-card crew-card">
-                                <h3>🎬 Equipe</h3>
+                                <h3><span class="material-symbols-outlined">movie</span> Equipe</h3>
                                 <div class="crew-info">
                                     <p><strong>Diretor:</strong> ${selected.director}</p>
                                     <p><strong>Roteirista:</strong> ${selected.writer}</p>
                                 </div>
                             </div>
                             <div class="detail-card production-card">
-                                <h3>🏭 Produção</h3>
+                                <h3><span class="material-symbols-outlined">location_city</span> Produção</h3>
                                 <div class="production-info">
                                     <p><strong>País:</strong> ${selected.country}</p>
                                     <p><strong>Lançamento:</strong> ${selected.released}</p>
                                 </div>
                             </div>
                             <div class="detail-card awards-card">
-                                <h3>🏆 Reconhecimentos</h3>
+                                <h3><span class="material-symbols-outlined">emoji_events</span> Reconhecimentos</h3>
                                 <p>${selected.awards}</p>
                             </div>
                         </div>
@@ -136,7 +145,7 @@
                 if (recommendedMovies.length > 0) {
                     const carouselTrack = face.find('#carouselTrack');
                     let currentIndex = 0;
-                    
+
                     // Auto-scroll do carrossel
                     setInterval(() => {
                         currentIndex = (currentIndex + 1) % Math.max(1, recommendedMovies.length - 2);
@@ -145,7 +154,7 @@
                     }, 3000);
 
                     // Adicionar click handlers para os cards do carrossel
-                    face.find('.carousel-card').on('click', function(e) {
+                    face.find('.carousel-card').on('click', function (e) {
                         e.preventDefault();
                         const movieId = $(this).attr('href').split('id=')[1];
                         cmclient.movieEventPost(sessionId, movieId);
@@ -157,10 +166,14 @@
                 face.append(`
                     <div class="action-section">
                         <button class="action-btn home-btn">
-                            🏠 Explorar Mais Filmes
+                            <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">
+                                explore
+                            </span>
+                            Explorar Mais Filmes
                         </button>
                     </div>
                 `);
+
 
                 face.find('.home-btn').on('click', () => {
                     location.hash = 'home';
