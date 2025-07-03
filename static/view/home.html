@@ -185,6 +185,20 @@
             return container;
         }
 
+        renderMovies = (face, sessionId, selectedGenres, movies, searchTerm, moviePerPage) => {
+            const currentPage = getCurrentPageFromHash();
+            let filteredMovies = filterMoviesByGenres(movies, selectedGenres);
+            filteredMovies = filterMoviesBySearchTerm(filteredMovies, searchTerm);
+
+            face.empty();
+
+            const totalPages = Math.ceil(filteredMovies.length / moviePerPage);
+            const moviesPage = paginateMovies(filteredMovies, currentPage, moviePerPage);
+
+            renderMovieGrid(face, moviesPage, sessionId);
+            renderPagination(face, currentPage, totalPages);
+        }
+
 
 
         (async ($, $ff, sections) => {
@@ -245,21 +259,7 @@
                     });
                 }
 
-                renderMovies = () => {
-                    const currentPage = getCurrentPageFromHash();  // aqui pega a página da URL/hash
-                    let filteredMovies = filterMoviesByGenres(movies, selectedGenres);
-                    filteredMovies = filterMoviesBySearchTerm(filteredMovies, searchTerm);
-
-                    face.empty();
-
-                    const totalPages = Math.ceil(filteredMovies.length / 16);
-                    const moviesPage = paginateMovies(filteredMovies, currentPage, 16);
-
-                    renderMovieGrid(face, moviesPage, sessionId);
-                    renderPagination(face, currentPage, totalPages);
-                }
-
-                renderMovies();
+                renderMovies(face, sessionId, selectedGenres, movies, searchTerm, 16);
             };
         })
     </script>
