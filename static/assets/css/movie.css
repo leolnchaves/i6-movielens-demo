@@ -138,18 +138,15 @@
 }
 
 .genre-tag {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    padding: 8px 16px;
+    background: linear-gradient(135deg, #2da6de, #1d77b9);
+    padding: 6px 12px;
     border-radius: 20px;
     font-size: 13px;
     font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: transform 0.2s ease;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.genre-tag:hover {
-    transform: translateY(-2px);
-}
 
 .movie-plot {
     font-size: 18px;
