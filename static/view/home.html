@@ -21,7 +21,7 @@
     </section>
 
     <script>
-        paginateMovies = (movies, page, pageSize = 20) => {
+        paginateMovies = (movies, page, pageSize = 16) => {
             const start = (page - 1) * pageSize;
             return movies.slice(start, start + pageSize);
         }
@@ -207,7 +207,7 @@
 
                 let filteredMovies = filterMoviesByGenres(movies, selectedGenres);
                 let currentPage = getCurrentPageFromHash();
-                let pageSize = 20;
+                let pageSize = 16;
                 let totalPages = Math.ceil(filteredMovies.length / pageSize);
                 let moviesPage = paginateMovies(filteredMovies, currentPage, pageSize);
 
