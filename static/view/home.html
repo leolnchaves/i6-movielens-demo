@@ -9,7 +9,7 @@
                     <img src="./assets/images/white-i6logo-full.png" alt="Infinity6 Logo" class="brand-logo"></img>
                     <span> RaaS Session-Based </span>
                 </div>
-                
+
                 <form id="search-form" role="search">
                     <input type="search" id="search-input" placeholder="Search for movies..." />
                     <button type="submit">Search</button>
@@ -113,12 +113,17 @@
         }
 
         filterMoviesByGenres = (movies, selectedGenres) => {
-            if (selectedGenres.length === 0) {
-                return movies;
-            }
+            if (selectedGenres.length === 0) return movies;
+
+            const selectedGenresLower = selectedGenres.map(g => g.toLowerCase());
 
             return movies.filter(movie =>
-                movie.genres.some(genre => selectedGenres.includes(genre))
+                Array.isArray(movie.genres) &&
+                selectedGenresLower.every(
+                    selected => movie.genres.some(
+                        genre => genre.toLowerCase() === selected
+                    )
+                )
             );
         }
 
