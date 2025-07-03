@@ -135,6 +135,30 @@
             return genreButtons;
         };
 
+        renderSelectedGenreChips = (selectedGenres) => {
+            const container = $('<div class="selected-genres"></div>');
+
+            if (selectedGenres.length === 0) {
+                container.text('Nenhum gênero selecionado');
+                return container;
+            }
+
+            for (let genre of selectedGenres) {
+                const chip = $('<span class="genre-chip"></span>').text(genre);
+                const removeBtn = $('<button class="remove-chip">&times;</button>');
+
+                removeBtn.on('click', () => {
+                    const updatedGenres = selectedGenres.filter(g => g !== genre);
+                    setSelectedGenresInHash(updatedGenres);
+                });
+
+                chip.append(removeBtn);
+                container.append(chip);
+            }
+
+            return container;
+        }
+
 
 
         (async ($, $ff, sections) => {
@@ -169,15 +193,10 @@
                 let selectedGenres = getSelectedGenresFromHash();
                 header.append(renderGenreButtons(selectedGenres, allGenres));
 
-                let selectedText = selectedGenres.length
-                    ? `Selected genres: ${selectedGenres.join(', ')}`
-                    : 'No genres selected';
-
                 if (header.find('.selected-genres').length > 0) {
-                    header.find('.selected-genres').text(selectedText);
+                    header.find('.selected-genres').replaceWith(renderSelectedGenreChips(selectedGenres));
                 } else {
-                    const selectedDiv = $('<div class="selected-genres"></div>').text(selectedText);
-                    header.append(selectedDiv);
+                    header.append(renderSelectedGenreChips(selectedGenres));
                 }
 
                 // ################################
