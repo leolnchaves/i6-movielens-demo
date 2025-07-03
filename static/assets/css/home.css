@@ -131,7 +131,7 @@
 }
 
 .selected-genres .genre-chip {
-    background: linear-gradient(135deg, #f15a22, #f99d1c);
+    background: linear-gradient(135deg, #001c37, #1d77b9);
     padding: 8px 16px;
     border-radius: 20px;
     font-weight: 600;
