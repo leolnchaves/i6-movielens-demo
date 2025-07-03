@@ -8,10 +8,14 @@
     <section id="movie-footer">
         <div id="history-toggle">
             <span class="material-symbols-outlined">expand_less</span>
+            <span>History</span>
         </div>
 
         <div id="history-card">
             <h4>Movies Visited in your session:</h4>
+            <p style="font-size: 0.75rem; color: #f97316; margin-top: -0.5rem; margin-bottom: 0.75rem;">
+                These movies are influencing your recommendations.
+            </p>
             <div id="history-list"></div>
         </div>
     </section>
@@ -250,6 +254,7 @@
 
                 toggle.on('click', () => {
                     card.toggle();
+                    toggle.toggleClass('open');
 
                     if (card.is(':visible')) {
                         list.empty();
@@ -286,6 +291,7 @@
 
                     if (!isClickInside) {
                         card.hide();
+                        toggle.removeClass('open');
                     }
                 });
             };
