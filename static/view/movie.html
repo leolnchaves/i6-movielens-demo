@@ -2,6 +2,18 @@
 
 <body>
     <section id="movie">
+
+    </section>
+
+    <section id="movie-footer">
+        <div id="history-toggle">
+            <span class="material-symbols-outlined">expand_less</span>
+        </div>
+
+        <div id="history-card">
+            <h4>Movies Visited in your session:</h4>
+            <div id="history-list"></div>
+        </div>
     </section>
 
     <script>
@@ -13,20 +25,32 @@
 
         (async ($, $ff, sections) => {
             const movie = sections('movie');
+            const footer = sections('movie-footer');
 
             return async (query) => {
                 let layout = await $ff('comp/layout.html');
                 layout.face(movie());
                 layout.header($());
+                layout.footer(footer());
 
                 let face = layout.getFace();
                 let header = layout.getHeader();
+                let moviefooter = layout.getFooter();
 
                 let movieId = getMovieIdFromHash();
 
                 if (!movieId) {
                     location.hash = 'home';
                     return;
+                }
+
+                // Recupera ou inicializa a lista
+                let visited = JSON.parse(sessionStorage.getItem('visitedMovies') || '[]');
+
+                // Evita duplicatas
+                if (!visited.includes(movieId)) {
+                    visited.push(movieId);
+                    sessionStorage.setItem('visitedMovies', JSON.stringify(visited));
                 }
 
                 let movies = await cmclient.getMovies();
@@ -45,7 +69,7 @@
                 //     </div>
                 // `);
                 // <span class="movie-brand-title">RaaS Session-Based</span>
-                let sessionId = localStorage.getItem('sessionId');
+                let sessionId = sessionStorage.getItem('sessionId');
                 let sessionPlaceholder = header.find('.session-id')
 
                 if (!sessionPlaceholder.length) {
@@ -150,7 +174,6 @@
                     const carouselContainer = face.find('.carousel-container');
                     const slideWidth = 220;
 
-                    // DUPLICA os slides no DOM para loop infinito
                     carouselTrack.append(carouselTrack.html());
 
                     let currentIndex = 0;
@@ -214,9 +237,56 @@
                     </div>
                 `);
 
-
                 face.find('.home-btn').on('click', () => {
                     location.hash = 'home';
+                });
+
+
+                // Foooooooter
+
+                const toggle = moviefooter.find('#history-toggle');
+                const card = moviefooter.find('#history-card');
+                const list = moviefooter.find('#history-list');
+
+                toggle.on('click', () => {
+                    card.toggle();
+
+                    if (card.is(':visible')) {
+                        list.empty();
+                        const visitedIds = JSON.parse(sessionStorage.getItem('visitedMovies') || '[]').slice(-100).reverse(); // últimos 5
+                        const visitedMovies = visitedIds
+                            .map(id => movies.find(m => m.movieId === id))
+                            .filter(Boolean);
+
+                        visitedMovies.forEach(movie => {
+                            list.append(`
+                                <div class="history-entry" data-id="${movie.movieId}">
+                                    <img src="${movie.poster}" alt="${movie.title}">
+                                    <div>
+                                        <div style="font-weight: 600;">${movie.title}</div>
+                                        <div style="font-size: 0.8rem; color: #94a3b8;">${movie.released.split(' ').pop()}</div>
+                                    </div>
+                                </div>
+                            `);
+                        });
+
+                        // Clique para navegar
+                        list.find('.history-entry').on('click', function () {
+                            const id = $(this).data('id');
+                            location.hash = `movie?id=${id}`;
+                            card.hide();
+                        });
+                    }
+                });
+
+                $(document).on('click', (event) => {
+                    const target = $(event.target);
+
+                    const isClickInside = target.closest('#history-card').length > 0 || target.closest('#history-toggle').length > 0;
+
+                    if (!isClickInside) {
+                        card.hide();
+                    }
                 });
             };
         })

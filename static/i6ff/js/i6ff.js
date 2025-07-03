@@ -109,10 +109,10 @@
             //     cmclient.redirectLogin()
             // }
 
-            let sessionId = localStorage.getItem('sessionId');
+            let sessionId = sessionStorage.getItem('sessionId');
             if (!sessionId) {
                 sessionId = crypto.randomUUID();
-                localStorage.setItem('sessionId', sessionId);
+                sessionStorage.setItem('sessionId', sessionId);
             }
 
             let view = await $ff('view/' + viewname + '.html');

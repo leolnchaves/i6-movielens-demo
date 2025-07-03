@@ -27,12 +27,10 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(15, 15, 35, 0.8) 0%,
-        rgba(26, 26, 46, 0.6) 50%,
-        rgba(22, 33, 62, 0.8) 100%
-    );
+    background: linear-gradient(135deg,
+            rgba(15, 15, 35, 0.8) 0%,
+            rgba(26, 26, 46, 0.6) 50%,
+            rgba(22, 33, 62, 0.8) 100%);
 }
 
 .hero-content {
@@ -96,7 +94,7 @@
 
 
 
-.movie-meta span{
+.movie-meta span {
     display: flex;
     justify-content: center;
     text-align: center;
@@ -211,11 +209,13 @@
     color: #cbd5e0;
 }
 
-.crew-info p, .production-info p {
+.crew-info p,
+.production-info p {
     margin-bottom: 8px;
 }
 
-.crew-info strong, .production-info strong {
+.crew-info strong,
+.production-info strong {
     color: #fff;
     margin-right: 10px;
 }
@@ -329,7 +329,8 @@
     padding: 60px;
     background: rgba(0, 0, 0, 0.2);
     margin-top: 40px;
-    display: none; /* Hidden since we moved to hero */
+    display: none;
+    /* Hidden since we moved to hero */
 }
 
 /* Action Section */
@@ -405,6 +406,73 @@
     gap: 20px;
 }
 
+#history-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #1f2937;
+    color: white;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 999;
+    transition: background 0.2s ease;
+}
+
+#history-toggle:hover {
+    background: #374151;
+}
+
+#history-card {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 20px;
+    display: none;
+    z-index: 998;
+    color: #fff;
+}
+
+#history-card h4 {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 5px;
+}
+
+#history-list {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.history-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.history-entry:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.history-entry img {
+    width: 40px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
 
 /* Responsive Design */
 @media (max-width: 1200px) {
@@ -412,12 +480,12 @@
         padding: 0 40px;
         gap: 30px;
     }
-    
+
     .movie-poster {
         width: 280px;
         height: 420px;
     }
-    
+
     .movie-title {
         font-size: 3rem;
     }
@@ -429,24 +497,24 @@
         text-align: center;
         padding: 0 30px;
     }
-    
+
     .movie-poster {
         width: 300px;
         height: 450px;
     }
-    
+
     .movie-title {
         font-size: 2.5rem;
     }
-    
+
     .movie-meta {
         justify-content: center;
     }
-    
+
     .details-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .movie-details,
     .recommendations-section,
     .action-section {
@@ -458,25 +526,25 @@
     .movie-hero {
         height: 70vh;
     }
-    
+
     .movie-poster {
         width: 250px;
         height: 375px;
     }
-    
+
     .movie-title {
         font-size: 2rem;
     }
-    
+
     .recommendations-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 20px;
     }
-    
+
     .movie-meta {
         gap: 15px;
     }
-    
+
     .movie-meta span {
         padding: 8px 16px;
         font-size: 12px;

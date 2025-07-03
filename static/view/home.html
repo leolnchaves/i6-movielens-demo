@@ -214,7 +214,7 @@
                     layout.header($(home()).find('#home-header'));
                 }
 
-                const sessionId = localStorage.getItem('sessionId');
+                const sessionId = sessionStorage.getItem('sessionId');
 
                 if (header.find('.session-id').length > 0) {
                     header.find('.session-id').remove();

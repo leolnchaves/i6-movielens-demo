@@ -86,7 +86,7 @@
                 let face = layout.getFace();
                 let header = layout.getHeader();
 
-                const sessionId = localStorage.getItem('sessionId');
+                const sessionId = sessionStorage.getItem('sessionId');
 
                 // Session ID display
                 if (header.find('.session-id').length > 0) {
