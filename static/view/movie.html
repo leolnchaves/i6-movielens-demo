@@ -79,6 +79,32 @@
                                     ${selected.genres.map(genre => `<span class="genre-tag">${genre}</span>`).join('')}
                                 </div>
                                 <p class="movie-plot">${selected.plot}</p>
+
+                                <!-- Detalhes agora aqui dentro -->
+                                <div class="details-grid inside-hero">
+                                    <div class="detail-card cast-card">
+                                        <h3><span class="material-symbols-outlined">theater_comedy</span> Elenco Principal</h3>
+                                        <p>${selected.actors}</p>
+                                    </div>
+                                    <div class="detail-card crew-card">
+                                        <h3><span class="material-symbols-outlined">movie</span> Equipe</h3>
+                                        <div class="crew-info">
+                                            <p><strong>Diretor:</strong> ${selected.director}</p>
+                                            <p><strong>Roteirista:</strong> ${selected.writer}</p>
+                                        </div>
+                                    </div>
+                                    <div class="detail-card production-card">
+                                        <h3><span class="material-symbols-outlined">location_city</span> Produção</h3>
+                                        <div class="production-info">
+                                            <p><strong>País:</strong> ${selected.country}</p>
+                                            <p><strong>Lançamento:</strong> ${selected.released}</p>
+                                        </div>
+                                    </div>
+                                    <div class="detail-card awards-card">
+                                        <h3><span class="material-symbols-outlined">emoji_events</span> Reconhecimentos</h3>
+                                        <p>${selected.awards}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -119,35 +145,35 @@
                     `);
                 }
 
-                // Movie Details Section
-                face.append(`
-                    <div class="movie-details">
-                        <div class="details-grid">
-                            <div class="detail-card cast-card">
-                                <h3><span class="material-symbols-outlined">theater_comedy</span> Elenco Principal</h3>
-                                <p>${selected.actors}</p>
-                            </div>
-                            <div class="detail-card crew-card">
-                                <h3><span class="material-symbols-outlined">movie</span> Equipe</h3>
-                                <div class="crew-info">
-                                    <p><strong>Diretor:</strong> ${selected.director}</p>
-                                    <p><strong>Roteirista:</strong> ${selected.writer}</p>
-                                </div>
-                            </div>
-                            <div class="detail-card production-card">
-                                <h3><span class="material-symbols-outlined">location_city</span> Produção</h3>
-                                <div class="production-info">
-                                    <p><strong>País:</strong> ${selected.country}</p>
-                                    <p><strong>Lançamento:</strong> ${selected.released}</p>
-                                </div>
-                            </div>
-                            <div class="detail-card awards-card">
-                                <h3><span class="material-symbols-outlined">emoji_events</span> Reconhecimentos</h3>
-                                <p>${selected.awards}</p>
-                            </div>
-                        </div>
-                    </div>
-                `);
+                // // Movie Details Section
+                // face.append(`
+                //     <div class="movie-details">
+                //         <div class="details-grid">
+                //             <div class="detail-card cast-card">
+                //                 <h3><span class="material-symbols-outlined">theater_comedy</span> Elenco Principal</h3>
+                //                 <p>${selected.actors}</p>
+                //             </div>
+                //             <div class="detail-card crew-card">
+                //                 <h3><span class="material-symbols-outlined">movie</span> Equipe</h3>
+                //                 <div class="crew-info">
+                //                     <p><strong>Diretor:</strong> ${selected.director}</p>
+                //                     <p><strong>Roteirista:</strong> ${selected.writer}</p>
+                //                 </div>
+                //             </div>
+                //             <div class="detail-card production-card">
+                //                 <h3><span class="material-symbols-outlined">location_city</span> Produção</h3>
+                //                 <div class="production-info">
+                //                     <p><strong>País:</strong> ${selected.country}</p>
+                //                     <p><strong>Lançamento:</strong> ${selected.released}</p>
+                //                 </div>
+                //             </div>
+                //             <div class="detail-card awards-card">
+                //                 <h3><span class="material-symbols-outlined">emoji_events</span> Reconhecimentos</h3>
+                //                 <p>${selected.awards}</p>
+                //             </div>
+                //         </div>
+                //     </div>
+                // `);
 
                 // Adicionar funcionalidade do carrossel
                 if (recommendedMovies.length > 0) {

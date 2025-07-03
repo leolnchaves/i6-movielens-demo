@@ -45,6 +45,7 @@
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
+    padding-bottom: 30px;
 }
 
 .movie-poster-container {
@@ -171,6 +172,7 @@
     backdrop-filter: blur(20px);
     border-radius: 20px;
     padding: 30px;
+    padding-bottom: 0px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
     position: relative;
@@ -332,6 +334,9 @@
 /* Action Section */
 .action-section {
     text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding-bottom: 20px;
 }
 
 .action-btn {
@@ -391,6 +396,14 @@
     color: #fff;
     letter-spacing: 0.3px;
 }
+
+.details-grid.inside-hero {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
 
 /* Responsive Design */
 @media (max-width: 1200px) {
