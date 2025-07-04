@@ -5,20 +5,20 @@
     <section id="home">
         <header id="home-header">
             <div class="header-top">
-                <div class="header-content"> 
+                <div class="header-content">
                     <div class="brand-box">
                         <p> Real-Time Personalization Experience</p>
-                        <span> Powered by 
-                            <img src="./assets/images/recsys-logo.png" alt="Recsys Logo"
-                                class="brand-logo">
+                        <span> Powered by
+                            <img src="./assets/images/recsys-logo.png" alt="Recsys Logo" class="brand-logo">
                             </img>
                         </span>
                     </div>
-                </div>    
+                </div>
 
                 <div class="header-filtering glass-morphism rounded-lg p-4 mb-6">
                     <form id="search-form" role="search">
-                        <input type="search" id="search-input" placeholder="Search for movies..." class="flex h-10 rounded-md border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 w-full glass-morphism border-0 text-foreground placeholder:text-foreground/60"></input>
+                        <input type="search" id="search-input" placeholder="Search for movies..."
+                            class="flex h-10 rounded-md border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 w-full glass-morphism border-0 text-foreground placeholder:text-foreground/60"></input>
                         <!-- <button type="submit">Search</button> -->
                     </form>
                     <h3 class="text-base font-medium text-foreground mb-2" style="font-size: 14px;">Filter by Genre</h3>
@@ -63,25 +63,53 @@
         renderPagination = (container, currentPage, totalPages) => {
             const nav = $('<nav class="pagination-nav"></nav>');
 
+            // Previous
             if (currentPage > 1) {
-                const prev = $('<button>← Anterior</button>').on('click', () => {
+                const prev = $('<button>\< Previous</button>').on('click', () => {
                     updatePageInHash(currentPage - 1);
                 });
                 nav.append(prev);
             }
 
-            const pageInfo = $(`<div class="pagination-info">Página ${currentPage} de ${totalPages}</div>`);
-            nav.append(pageInfo);
+            // Page number buttons
+            const maxButtons = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+            let endPage = startPage + maxButtons - 1;
 
+            if (endPage > totalPages) {
+                endPage = totalPages;
+                startPage = Math.max(1, endPage - maxButtons + 1);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = $('<button></button>').text(i);
+                if (i === currentPage) {
+                    pageBtn.attr('disabled', true).css({
+                        fontWeight: 'bold',
+                        opacity: 0.8
+                    });
+                } else {
+                    pageBtn.on('click', () => {
+                        updatePageInHash(i);
+                    });
+                }
+                nav.append(pageBtn);
+            }
+
+            // Next
             if (currentPage < totalPages) {
-                const next = $('<button>Próxima →</button>').on('click', () => {
+                const next = $('<button>Next \></button>').on('click', () => {
                     updatePageInHash(currentPage + 1);
                 });
                 nav.append(next);
             }
 
+            // // Page info
+            // const pageInfo = $(`<div class="pagination-info">Page ${currentPage} of ${totalPages}</div>`);
+            // nav.append(pageInfo);
+
             container.append(nav);
-        }
+        };
 
         updatePageInHash = (newPage) => {
             const hash = location.hash;
@@ -181,7 +209,7 @@
 
             container = face.find('.movie-grid-container')
             container.empty();
-            renderMovieGrid(container, moviesPage, sessionId);            
+            renderMovieGrid(container, moviesPage, sessionId);
             renderPagination(container, currentPage, totalPages);
         }
 
@@ -216,7 +244,7 @@
                 let allGenres = cmclient.extractUniqueGenres(movies);
                 let selectedGenres = getSelectedGenresFromHash();
                 header.find('.genres-btn-placeholder').append(renderGenreButtons(selectedGenres, allGenres));
-                
+
 
                 // ################################
                 // Genres List
