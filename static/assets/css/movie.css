@@ -411,7 +411,10 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #f15a22;
+    background: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, .25);
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, .2);
     color: white;
     padding: 8px 14px;
     border-radius: 10px 0px;
@@ -426,7 +429,7 @@
 }
 
 #history-toggle:hover {
-    background: #ad360b;
+    background: rgba(255, 255, 255, .18);
 }
 
 #history-toggle .material-symbols-outlined {
