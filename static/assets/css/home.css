@@ -247,8 +247,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    padding: 40px;
+    gap: 8px;
+    /* padding: 40px; */
     margin-top: 40px;
     /* background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px); */
@@ -258,9 +258,9 @@
     /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); */
 }
 .pagination-nav button {
-    background-color: #f15a22;
+    background: transparent;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 14px;
     border-radius: 8px;
     color: #fff;
     font-weight: 500;
