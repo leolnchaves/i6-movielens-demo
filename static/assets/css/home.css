@@ -274,9 +274,8 @@
 }
 
 .pagination-nav button:disabled {
-    background-color: #ccc;
-    color: #666;
-    cursor: not-allowed;
+    background-color: rgb(204, 204, 204, 0.5);
+    color: #ffffff;
     opacity: 0.6;
 }
 
