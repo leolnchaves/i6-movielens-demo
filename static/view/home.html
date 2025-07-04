@@ -5,9 +5,19 @@
     <section id="home">
         <header id="home-header">
             <div class="header-top">
-                <div class="brand-box">
-                    <img src="./assets/images/white-i6logo-full.png" alt="Infinity6 Logo" class="brand-logo"></img>
-                    <span> RaaS Session-Based </span>
+                <div class="header-content"> 
+                    <div class="brand-box">
+                        <p> RaaS Session-Based </p>
+                        <span> Powered by 
+                            <img src="./assets/images/white-i6logo-full.png" alt="Infinity6 Logo"
+                                class="brand-logo">
+                            </img>
+                        </span>
+                    </div>
+                </div>    
+
+                <div class="genres-btn-placeholder">
+
                 </div>
 
                 <form id="search-form" role="search">
@@ -15,12 +25,6 @@
                     <button type="submit">Search</button>
                 </form>
             </div>
-
-            <h3 class="genre-heading">
-                Filter by Genre
-            </h3>
-            <div class="selected-genres"></div>
-
         </header>
 
         <main id="home-face"></main>
@@ -160,29 +164,6 @@
             return genreButtons;
         };
 
-        renderSelectedGenreChips = (selectedGenres) => {
-            const container = $('<div class="selected-genres"></div>');
-
-            if (selectedGenres.length === 0) {
-                container.text('No genres selected');
-                return container;
-            }
-
-            for (let genre of selectedGenres) {
-                const chip = $('<span class="genre-chip"></span>').text(genre);
-                const removeBtn = $('<button class="remove-chip">&times;</button>');
-
-                removeBtn.on('click', () => {
-                    const updatedGenres = selectedGenres.filter(g => g !== genre);
-                    setSelectedGenresInHash(updatedGenres);
-                });
-
-                chip.append(removeBtn);
-                container.append(chip);
-            }
-
-            return container;
-        }
 
         renderMovies = (face, sessionId, selectedGenres, movies, searchTerm, moviePerPage) => {
             const currentPage = getCurrentPageFromHash();
@@ -228,13 +209,8 @@
 
                 let allGenres = cmclient.extractUniqueGenres(movies);
                 let selectedGenres = getSelectedGenresFromHash();
-                header.append(renderGenreButtons(selectedGenres, allGenres));
+                header.find('.genres-btn-placeholder').append(renderGenreButtons(selectedGenres, allGenres));
 
-                if (header.find('.selected-genres').length > 0) {
-                    header.find('.selected-genres').replaceWith(renderSelectedGenreChips(selectedGenres));
-                } else {
-                    header.append(renderSelectedGenreChips(selectedGenres));
-                }
 
                 // ################################
                 // Genres List
