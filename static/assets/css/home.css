@@ -195,9 +195,9 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 25px;
     margin-bottom: 60px;
-    margin: 30px;
+    margin: 25px;
     padding: 25px;
-    border-radius: 15px;
+    border-radius: 12px;
 }
 
 .movie-card {
