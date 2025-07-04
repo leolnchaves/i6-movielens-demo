@@ -177,8 +177,12 @@
             const totalPages = Math.ceil(filteredMovies.length / moviePerPage);
             const moviesPage = paginateMovies(filteredMovies, currentPage, moviePerPage);
 
-            renderMovieGrid(face, moviesPage, sessionId);
-            renderPagination(face, currentPage, totalPages);
+            face.append('<div class="movie-grid-container"></div>');
+
+            container = face.find('.movie-grid-container')
+            container.empty();
+            renderMovieGrid(container, moviesPage, sessionId);            
+            renderPagination(container, currentPage, totalPages);
         }
 
         (async ($, $ff, sections) => {

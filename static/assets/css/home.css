@@ -185,19 +185,23 @@
     padding: 0 40px;
 }
 
-/* Movie Grid */
-.movie-grid {
+.movie-grid-container {
     background:rgba(255, 255, 255, .12);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, .25);
     box-shadow: 0  8px 32px -8px rgba(0, 0, 0, .2);
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 25px;
-    margin-bottom: 60px;
     margin: 25px;
     padding: 25px;
     border-radius: 12px;
+
+}
+
+/* Movie Grid */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+
 }
 
 .movie-card {
