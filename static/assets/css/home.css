@@ -383,24 +383,38 @@
 }
 
 .brand-box {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-    border-radius: 15px;
-    padding: 20px 30px;
-    max-height: none;
+    background-color: transparent;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    padding: 10px 0px;
+    max-height: 70px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .brand-title {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 700;
-    color: #ffffff;
-    margin-left: 15px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    letter-spacing: -0.5px;
+    color: #fff;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.powered-by {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #fff;
+}
+
+.user-logo {
+    height: 20px;
+    width: auto;
+    object-fit: contain;
 }
 
 .brand-logo {
