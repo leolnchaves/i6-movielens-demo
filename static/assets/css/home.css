@@ -325,14 +325,14 @@
 }
 
 .header-top {
+    flex-direction: column;
     display: flex;
-    align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
 }
-
+/* gradient-main: linear-gradient(135deg, hsl(350 85% 60%) 0%, hsl(330 80% 55%) 25%, hsl(280 90% 60%) 50%, hsl(250 80% 50%) 75%, hsl(220 70% 40%) 100%); */
 .brand-box {
-    margin: 30px;
+    margin: 25px;
     background-color: transparent;
     border-top-left-radius: 25px;
     border-bottom-right-radius: 25px;
@@ -342,23 +342,23 @@
 }
 
 .brand-box p {
+    margin-bottom: 0px;
     font-size: 30px;
+    font-weight: 600;
     color: #fff;
 }
 
 .brand-box span {
-    margin-top: -20px;
-    margin-right: -10px;
-    justify-content: end;
+    justify-content: start;
     display: flex;
     align-items: center;
-    font-size: 14px;
-    color: #fff;
+    font-size: 18px;
+    color: #ffffff;
 }
 
 
 .brand-logo {
-    height: 30px;
+    height: 40px;
     object-fit: contain;
     display: block;
 }
