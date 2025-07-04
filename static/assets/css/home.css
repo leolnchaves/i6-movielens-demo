@@ -210,7 +210,6 @@
 
 .movie-card:hover {
     color: rgb(241, 50, 130);
-    background: rgba(255, 255, 255, 0.05);
 }
 
 .movie-card a {
