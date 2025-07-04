@@ -1,0 +1,204 @@
+<html style="font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Intelliboard</title>
+    <link rel="stylesheet" href="../assets/css/colors.css">
+    <link rel="stylesheet" href="../assets/css/comp/layout.css">
+    <link rel="stylesheet" href="../assets/css/home2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section id="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="dashboard-title">Business Intelliboard</h1>
+                <div class="powered-by">
+                    <span>Powered by</span>
+                    <img src="../assets/images/favicon.png" alt="Logo" class="logo">
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-item active">
+                    <span class="nav-icon">👤</span>
+                    <span>Profile</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Business Analytics</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">💳</span>
+                    <span>Billing Analytics</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🔔</span>
+                    <span>Notifications</span>
+                    <span class="notification-badge">12</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-controls">
+                    <div class="view-selector">
+                        <label>Strike Angle View:</label>
+                        <select>
+                            <option>Mix of Products for Stores & Clusters (Retail)</option>
+                        </select>
+                    </div>
+                    <div class="time-selector">
+                        <span>Actual Month</span>
+                        <div class="month-controls">
+                            <button>📅</button>
+                            <button>⚙️</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn-dark">Last View Variations</button>
+                    <button class="btn-dark">Exploratory Data Analysis</button>
+                </div>
+            </header>
+
+            <div class="metrics-grid">
+                <!-- Key Metrics Row 1 -->
+                <div class="metric-card metric-red">
+                    <div class="metric-label">Key metric #1</div>
+                    <div class="metric-value">-1,7%</div>
+                </div>
+                
+                <div class="metric-card metric-green">
+                    <div class="metric-label">Key metric #2</div>
+                    <div class="metric-value">112%</div>
+                </div>
+                
+                <div class="metric-card metric-orange">
+                    <div class="metric-label">Key metric #3</div>
+                    <div class="metric-value">15,7%</div>
+                </div>
+                
+                <div class="metric-card metric-green">
+                    <div class="metric-label">ROI (close platform cost)</div>
+                    <div class="metric-value">41%</div>
+                </div>
+
+                <!-- Key Metrics Row 2 -->
+                <div class="metric-card metric-green metric-large">
+                    <div class="metric-label">Total Accuracy</div>
+                    <div class="metric-circle">
+                        <div class="circle-progress" data-percent="82">
+                            <span>82%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card metric-green metric-large">
+                    <div class="metric-label">Earnings ($)</div>
+                    <div class="metric-value large">1.075.137</div>
+                    <div class="metric-change">+5%</div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <span>Accuracy evolution</span>
+                        <span class="chart-value">65%</span>
+                    </div>
+                    <div class="chart-line">
+                        <svg viewBox="0 0 300 100" class="line-chart">
+                            <path d="M 0 80 Q 50 70 100 60 T 200 50 T 300 40" stroke="#667eea" stroke-width="3" fill="none"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-metrics">
+                <div class="stat-item">
+                    <div class="stat-label">Requisitions</div>
+                    <div class="stat-value">1.237.129</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-label">Data Ingestion</div>
+                    <div class="stat-value">2.1 gb</div>
+                </div>
+
+                <div class="metric-card metric-green small">
+                    <div class="metric-label">Request failures</div>
+                    <div class="metric-value">123</div>
+                    <div class="metric-sublabel">0.01%</div>
+                </div>
+                
+                <div class="metric-card metric-green small">
+                    <div class="metric-label">Average Req.SLA</div>
+                    <div class="metric-value">80</div>
+                    <div class="metric-sublabel">ms</div>
+                </div>
+                
+                <div class="metric-card metric-green small">
+                    <div class="metric-label">Availability (%)</div>
+                    <div class="metric-circle small">
+                        <div class="circle-progress" data-percent="99">
+                            <span>99%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="dashboard-footer">
+                <span>2024</span>
+                <span>All rights reserved.</span>
+            </footer>
+        </main>
+    </section>
+
+    <script src="../i6ff/lib/jquery.js"></script>
+    <script src="../i6ff/lib/bootstrap.bundle.min.js"></script>
+    <script src="../i6ff/lib/doT.js"></script>
+    <script src="../i6ff/lib/jquery.loading.js"></script>
+    <script src="../i6ff/js/i6ff.js"></script>
+    <script src="../assets/js/i6.js"></script>
+    <script src="../assets/js/i6.webfile.js"></script>
+    <script src="../assets/js/customermovielens.client.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        (async ($, $ff, sections) => {
+            const dashboard = sections('dashboard');
+            
+            return async () => {
+                // Initialize dashboard
+                console.log('Dashboard initialized');
+                
+                // Animate progress circles
+                $('.circle-progress').each(function() {
+                    const percent = $(this).data('percent');
+                    const circumference = 2 * Math.PI * 45;
+                    const offset = circumference - (percent / 100) * circumference;
+                    
+                    // Add SVG circle if not exists
+                    if (!$(this).find('svg').length) {
+                        $(this).prepend(`
+                            <svg class="progress-ring" width="100" height="100">
+                                <circle class="progress-ring-circle" stroke="rgba(255,255,255,0.3)" stroke-width="4" fill="transparent" r="45" cx="50" cy="50"/>
+                                <circle class="progress-ring-progress" stroke="white" stroke-width="4" fill="transparent" r="45" cx="50" cy="50" 
+                                        stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"/>
+                            </svg>
+                        `);
+                    }
+                });
+                
+                return dashboard;
+            };
+        })
+    </script>
+</body>
+
+</html>
