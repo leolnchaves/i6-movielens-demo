@@ -211,7 +211,6 @@
 .movie-card:hover {
     color: rgb(241, 50, 130);
 }
-
 .movie-card a {
     text-decoration: none;
     color: inherit;
@@ -228,7 +227,8 @@
 }
 
 .movie-card:hover img {
-    transform: scale(1.01);
+    transform: scale(1.02);
+    filter: brightness(0.8);
 }
 
 .movie-card div {
