@@ -3,7 +3,7 @@
     margin: 0 auto;
     position: relative;
     min-height: 100vh;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: #ffffff;
     overflow-x: hidden;
 }
@@ -70,45 +70,81 @@
 
 /* Genre Section */
 .genre-heading {
-    font-size: 24px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #fff 0%, #a8dadc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 25px;
+    margin-top: 35px;
+    padding-left: 5px;
+    position: relative;
+}
+
+.genre-heading::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background: linear-gradient(135deg, #f15a22, #f99d1c);
+    border-radius: 2px;
+    margin-right: 12px;
 }
 
 .genre-buttons {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 25px;
     flex-wrap: wrap;
-    margin: 30px;
+    margin: 0 0 25px 0;
+    padding: 0 5px;
 }
 
 .genre-btn {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 10px 20px;
-    border-radius: 25px;
-    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    padding: 12px 24px;
+    border-radius: 30px;
+    color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.genre-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.genre-btn:hover::before {
+    left: 100%;
 }
 
 .genre-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    color: #fff;
 }
 
 .genre-btn[data-active="true"] {
     background: linear-gradient(135deg, #f15a22, #f99d1c);
     border-color: #f15a22;
-    box-shadow: 0 8px 25px rgba(241, 90, 34, 0.3);
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(241, 90, 34, 0.4);
+    font-weight: 600;
 }
 
 .selected-genres {
@@ -383,24 +419,43 @@
 }
 
 .brand-box {
-    background-color: transparent;
-    border-top-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    padding: 10px 0px;
-    max-height: 70px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 25px 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    gap: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f15a22, #f99d1c);
+    border-radius: 20px 20px 0 0;
 }
 
 .brand-title {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
     color: #fff;
-    margin-bottom: 5px;
     text-align: center;
+    letter-spacing: -0.5px;
+    margin: 0;
+    background: linear-gradient(135deg, #fff 0%, #a8dadc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .powered-by {
@@ -408,13 +463,15 @@
     align-items: center;
     gap: 8px;
     font-size: 14px;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
 }
 
 .user-logo {
-    height: 20px;
+    height: 22px;
     width: auto;
     object-fit: contain;
+    filter: brightness(1.1);
 }
 
 .brand-logo {
