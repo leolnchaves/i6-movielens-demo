@@ -270,7 +270,7 @@
 }
 
 .pagination-nav button:hover {
-    background-color: #d94f1d;
+    background-color: rgb(204, 204, 204, 0.3);
 }
 
 .pagination-nav button:disabled {
