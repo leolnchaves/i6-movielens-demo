@@ -649,7 +649,7 @@
     margin-bottom: 1.5rem;
 }
 
-.actual-movie .history-block{
+.actual-movie .history-block {
     padding: 1rem;
     background-color: #ffffff26;
     border-color: #fff6;
@@ -659,7 +659,7 @@
     display: flex
 }
 
-.actual-movie .history-block p{
+.actual-movie .history-block p {
     margin: 0;
     line-height: 1rem;
     font-size: .75rem;
@@ -670,4 +670,28 @@
     color: #fff9;
     border-radius: 5px;
     padding: 0.5rem;
+}
+
+.viz-container {
+    background-color: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(1rem);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 1.5rem;
+}
+
+.viz-content {
+    display: grid;
+    grid-template-columns: 45% 52%;
+    gap: 2rem;
+    align-items: center;
+}
+
+.viz-graph {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.10);
 }
