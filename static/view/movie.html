@@ -1,13 +1,25 @@
 <html style="font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
 
 <body>
+    <section id="movie-header">
+        <div class="action-section">
+            <button class="action-btn home-btn glass-morphism">
+                <span class="material-symbols-outlined"
+                    style="vertical-align: middle; margin-right: 8px; font-size: 18px;">
+                    arrow_back
+                </span>
+                Go back
+            </button>
+        </div>
+    </section>
+
     <section id="movie">
 
     </section>
 
     <section id="movie-footer">
         <div id="history-toggle">
-            <span class="material-symbols-outlined">expand_less</span>
+            <span class="material-symbols-outlined">history</span>
             <span>History</span>
         </div>
 
@@ -28,17 +40,18 @@
         }
 
         (async ($, $ff, sections) => {
+            const header = sections('movie-header');
             const movie = sections('movie');
             const footer = sections('movie-footer');
 
             return async (query) => {
                 let layout = await $ff('comp/layout.html');
+                layout.header(header());
                 layout.face(movie());
-                layout.header($());
                 layout.footer(footer());
 
                 let face = layout.getFace();
-                let header = layout.getHeader();
+                let movieheader = layout.getHeader();
                 let moviefooter = layout.getFooter();
 
                 let movieId = getMovieIdFromHash();
@@ -74,13 +87,13 @@
                 // `);
                 // <span class="movie-brand-title">RaaS Session-Based</span>
                 let sessionId = sessionStorage.getItem('sessionId');
-                let sessionPlaceholder = header.find('.session-id')
+                // let sessionPlaceholder = header.find('.session-id')
 
-                if (!sessionPlaceholder.length) {
-                    sessionPlaceholder = $('<span class="session-id"></span>');
-                    sessionPlaceholder.text(`Session: ${sessionId || 'No session'}`);
-                    header.append(sessionPlaceholder);
-                }
+                // if (!sessionPlaceholder.length) {
+                //     sessionPlaceholder = $('<span class="session-id"></span>');
+                //     sessionPlaceholder.text(`Session: ${sessionId || 'No session'}`);
+                //     header.append(sessionPlaceholder);
+                // }
 
                 let recs = await cmclient.getSessionRecommendation(sessionId, movieId);
                 let recommendedMovies = recs.items
@@ -89,18 +102,21 @@
 
                 // Hero Section com imagem de fundo
                 face.append(`
-                    <div class="movie-hero" style="background-image: url('${selected.poster}')">
-                        <div class="hero-overlay"></div>
+                    <div class="movie-hero glass-morphism">
+                        <div class="hero-overlay" style="background-image: url('${selected.poster}')"></div>
                         <div class="hero-content">
                             <div class="movie-main-info">
-                                <div class="rating-badge">
-                                    <span class="material-symbols-outlined">star</span>
-                                    <span class="rating-value">${selected.imdb_rating}</span>
-                                </div>
                                 <h1 class="movie-title">${selected.title}</h1>
                                 <div class="movie-meta">
-                                    <span class="release-year"><span class="material-symbols-outlined">calendar_month</span>${selected.released.split(' ').pop()}</span>
                                     <span class="runtime"><span class="material-symbols-outlined">schedule</span> ${selected.runtime}</span>
+                                    <div class="rating-badge">
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        <span class="rating-value">
+                                            ${selected.imdb_rating}
+                                        </span>
+                                    </div>
                                     <span class="language"><span class="material-symbols-outlined">public</span> ${selected.language}</span>
                                 </div>
                                 <div class="genre-tags">
@@ -109,25 +125,25 @@
                                 <p class="movie-plot">${selected.plot}</p>
 
                                 <div class="details-grid inside-hero">
-                                    <div class="detail-card cast-card">
+                                    <div class="detail-card glass-morphism cast-card">
                                         <h3><span class="material-symbols-outlined">theater_comedy</span> Main Cast</h3>
                                         <p>${selected.actors}</p>
                                     </div>
-                                    <div class="detail-card crew-card">
+                                    <div class="detail-card glass-morphism crew-card">
                                         <h3><span class="material-symbols-outlined">movie</span> Crew</h3>
                                         <div class="crew-info">
                                             <p><strong>Director:</strong> ${selected.director}</p>
                                             <p><strong>Writer:</strong> ${selected.writer}</p>
                                         </div>
                                     </div>
-                                    <div class="detail-card production-card">
+                                    <div class="detail-card glass-morphism production-card">
                                         <h3><span class="material-symbols-outlined">location_city</span> Production</h3>
                                         <div class="production-info">
                                             <p><strong>Country:</strong> ${selected.country}</p>
                                             <p><strong>Released:</strong> ${selected.released}</p>
                                         </div>
                                     </div>
-                                    <div class="detail-card awards-card">
+                                    <div class="detail-card glass-morphism awards-card">
                                         <h3><span class="material-symbols-outlined">emoji_events</span> Awards</h3>
                                         <p>${selected.awards}</p>
                                     </div>
@@ -144,28 +160,30 @@
                                 <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">
                                     auto_awesome
                                 </span>
-                                Descobertas Personalizadas
+                                Recommended <span style="color: orange;">for You</span>
                             </h3>
-                            <div class="carousel-container">
-                                <div class="carousel-track" id="carouselTrack">
-                                    ${recommendedMovies.map(movie => `
-                                        <div class="carousel-slide">
-                                            <a href="#movie?id=${movie.movieId}" class="carousel-card">
-                                                <img src="${movie.poster}" alt="${movie.title}">
-                                                <div class="card-info-overlay">
-                                                    <h4>${movie.title}</h4>
-                                                    <p class="card-rating">
-                                                        <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">
-                                                            star
-                                                        </span>
-                                                        ${movie.imdb_rating}
-                                                    </p>
-                                                    <p class="card-genres">${movie.genres ? movie.genres.slice(0, 2).join(', ') : ''}</p>
-                                                    <p class="card-year">${movie.released ? movie.released.split(' ').pop() : ''}</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    `).join('')}
+                            <div class="holder-carousel glass-morphism"> 
+                                <div class="carousel-container">
+                                    <div class="carousel-track" id="carouselTrack">
+                                        ${recommendedMovies.map(movie => `
+                                            <div class="carousel-slide">
+                                                <a href="#movie?id=${movie.movieId}" class="carousel-card">
+                                                    <img src="${movie.poster}" alt="${movie.title}">
+                                                    <div class="card-info-overlay">
+                                                        <h4>${movie.title}</h4>
+                                                        <p class="card-rating">
+                                                            <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">
+                                                                star
+                                                            </span>
+                                                            ${movie.imdb_rating}
+                                                        </p>
+                                                        <p class="card-genres">${movie.genres ? movie.genres.slice(0, 2).join(', ') : ''}</p>
+                                                        <p class="card-year">${movie.released ? movie.released.split(' ').pop() : ''}</p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        `).join('')}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -229,19 +247,7 @@
                     });
                 }
 
-                // Action buttons
-                face.append(`
-                    <div class="action-section">
-                        <button class="action-btn home-btn">
-                            <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">
-                                explore
-                            </span>
-                            Explorar Mais Filmes
-                        </button>
-                    </div>
-                `);
-
-                face.find('.home-btn').on('click', () => {
+                movieheader.find('.home-btn').on('click', () => {
                     location.hash = 'home';
                 });
 
@@ -291,7 +297,7 @@
 
                     if (!isClickInside) {
                         card.hide();
-                        toggle.removeClass('open'); 
+                        toggle.removeClass('open');
                     }
                 });
             };

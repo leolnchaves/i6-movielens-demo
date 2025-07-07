@@ -8,8 +8,22 @@
     --blue-limitless-color: #2da6de;
     --orange-ambition-color: #f15a22;
     --yellow-growth-color: #f99d1c;
+
+    --gradient-card: linear-gradient(135deg, rgba(255, 255, 255, .15) 0%, rgba(255, 255, 255, .08) 100%);
+    --glass-bg: rgba(255, 255, 255, .12);
+    --glass-border: rgba(255, 255, 255, .25);
+    --shadow-glow: 0 20px 40px -12px rgba(0, 0, 0, .3);
+    --shadow-card: 0 8px 32px -8px rgba(0, 0, 0, .2);
 }
 
 * {
     font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.glass-morphism {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-card);
 }
