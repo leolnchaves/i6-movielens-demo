@@ -313,20 +313,28 @@
                 const historyContainer = face.find('.history-session');
                 historyContainer.empty();
 
+                historyContainer.append(`
+                    <p class="history-note">
+                        <strong>Other movies visited in your session:</strong><br>
+                        These movies are influencing your recommendations.
+                    </p>
+                `);
+
                 visitedMovies.forEach(movie => {
+                    const year = movie.released ? movie.released.split(' ').pop() : '';
                     historyContainer.append(`
-                        <div class="history-entry-static" data-id="${movie.movieId}">
+                        <div class="history-block" data-id="${movie.movieId}">
                             <img src="${movie.poster}" alt="${movie.title}">
-                            <div class="history-meta">
+                            <div class="history-text">
                                 <div class="history-title">${movie.title}</div>
-                                <div class="history-year">${movie.released.split(' ').pop()}</div>
+                                <div class="history-year">${year}</div>
                             </div>
                         </div>
                     `);
                 });
 
                 // Click para navegar
-                historyContainer.find('.history-entry-static').on('click', function () {
+                historyContainer.find('.history-block').on('click', function () {
                     const id = $(this).data('id');
                     location.hash = `movie?id=${id}`;
                 });
