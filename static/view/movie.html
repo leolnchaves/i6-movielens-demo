@@ -127,7 +127,7 @@
                                         ${selected.genres.map(genre => `<span class="genre-tag">${genre}</span>`).join('')}
                                     </div>
                                 </div>
-                                <div style="flex: 1 1 0%; height:100px"></div>
+                                <div style="flex: 1 1 0%; height:8rem"></div>
                                 <p class="movie-plot">${selected.plot}</p>
                                 <div class="details-grid inside-hero">
                                     <div class="detail-card glass-morphism cast-card">
@@ -161,36 +161,62 @@
                 if (recommendedMovies.length > 0) {
                     face.append(`
                         <div class="hero-recommendations">
-                            <h3>
-                                <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">
-                                    auto_awesome
-                                </span>
-                                Recommended <span style="color: orange;">for You</span>
-                            </h3>
-                            <div class="holder-carousel glass-morphism"> 
-                                <div class="carousel-container">
-                                    <div class="carousel-track" id="carouselTrack">
-                                        ${recommendedMovies.map(movie => `
-                                            <div class="carousel-slide">
-                                                <a href="#movie?id=${movie.movieId}" class="carousel-card">
-                                                    <img src="${movie.poster}" alt="${movie.title}">
-                                                    <div class="card-info-overlay">
-                                                        <h4>${movie.title}</h4>
-                                                        <p class="card-rating">
-                                                            <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">
-                                                                star
-                                                            </span>
-                                                            ${movie.imdb_rating}
-                                                        </p>
-                                                        <p class="card-genres">${movie.genres ? movie.genres.slice(0, 2).join(', ') : ''}</p>
-                                                        <p class="card-year">${movie.released ? movie.released.split(' ').pop() : ''}</p>
+                            <div class="grid-divisor">
+                                <div>
+                                    <h3>
+                                        <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">
+                                            auto_awesome
+                                        </span>
+                                        Recommended <span style="color: orange;">for You</span>
+                                    </h3>
+                                    <div class="holder-carousel glass-morphism"> 
+                                        <div class="carousel-container">
+                                            <div class="carousel-track" id="carouselTrack">
+                                                ${recommendedMovies.map(movie => `
+                                                    <div class="carousel-slide">
+                                                        <a href="#movie?id=${movie.movieId}" class="carousel-card">
+                                                            <img src="${movie.poster}" alt="${movie.title}">
+                                                            <p class="card-title-below">${movie.title}</p> <!-- Aqui está o nome abaixo -->
+                                                            <div class="card-info-overlay">
+                                                                <h4>${movie.title}</h4>
+                                                                <p class="card-rating">
+                                                                    <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">
+                                                                        star
+                                                                    </span>
+                                                                    ${movie.imdb_rating}
+                                                                </p>
+                                                                <p class="card-genres">${movie.genres ? movie.genres.slice(0, 2).join(', ') : ''}</p>
+                                                                <p class="card-year">${movie.released ? movie.released.split(' ').pop() : ''}</p>
+                                                            </div>
+                                                        </a>
                                                     </div>
-                                                </a>
+                                                `).join('')}
                                             </div>
-                                        `).join('')}
+                                        </div>
+                                    </div>
+                                    <h3 style="margin-top: 1.5rem;">
+                                        <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">
+                                            model_training
+                                        </span>
+                                        Reinforcement Learning
+                                    </h3>
+                                    <div class="holder-carousel glass-morphism"> 
+                                        <p class="note-about">Unclicked titles in the recommendation are intentionally considered to reinforce the model's learning and improve the accuracy of future suggestions.</p>
+                                        <div class="unclicked-items">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div>
+                                     <h3>
+                                        <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">
+                                            history
+                                        </span>
+                                        History
+                                    </h3>
+                                    <div class="history-session glass-morphism" >
+                                    </div>
+                                </div>
+                            </div>    
                         </div>
                     `);
                 }
@@ -199,7 +225,7 @@
                 if (recommendedMovies.length > 0) {
                     const carouselTrack = face.find('#carouselTrack');
                     const carouselContainer = face.find('.carousel-container');
-                    const slideWidth = 220;
+                    const slideWidth = 170;
 
                     carouselTrack.append(carouselTrack.html());
 
@@ -225,7 +251,7 @@
                         currentIndex++;
                         scrollToIndex(currentIndex);
                         resetIfNeeded();
-                    }, 3000);
+                    }, 4000);
 
                     // Scroll de mouse (mousewheel ou trackpad horizontal)
                     carouselContainer.on('wheel', (e) => {
@@ -257,6 +283,55 @@
                 });
 
 
+                const visitedIds = JSON.parse(sessionStorage.getItem('visitedMovies') || '[]').slice(-100).reverse();
+                const unclicked = recommendedMovies.filter(m => !visitedIds.includes(m.movieId));
+
+                visitedMovies = visitedIds
+                            .map(id => movies.find(m => m.movieId === id))
+                            .filter(Boolean);
+
+
+
+                if (unclicked.length > 0) {
+                    const container = face.find('.unclicked-items');
+
+                    unclicked.forEach(movie => {
+                        const year = movie.released ? movie.released.split(' ').pop() : '';
+                        container.append(`
+                            <div class="unclicked-card-wrapper">
+                                <div class="unclicked-card" title="${movie.title}">
+                                    <img src="${movie.poster}" alt="${movie.title}">
+                                </div>
+                                <p class="unclicked-title">${movie.title}</p>
+                                <p class="unclicked-year">${year}</p>
+                            </div>
+                        `);
+                    });
+                }
+
+
+                const historyContainer = face.find('.history-session');
+                historyContainer.empty();
+
+                visitedMovies.forEach(movie => {
+                    historyContainer.append(`
+                        <div class="history-entry-static" data-id="${movie.movieId}">
+                            <img src="${movie.poster}" alt="${movie.title}">
+                            <div class="history-meta">
+                                <div class="history-title">${movie.title}</div>
+                                <div class="history-year">${movie.released.split(' ').pop()}</div>
+                            </div>
+                        </div>
+                    `);
+                });
+
+                // Click para navegar
+                historyContainer.find('.history-entry-static').on('click', function () {
+                    const id = $(this).data('id');
+                    location.hash = `movie?id=${id}`;
+                });
+
+
                 // Foooooooter
 
                 const toggle = moviefooter.find('#history-toggle');
@@ -269,10 +344,7 @@
 
                     if (card.is(':visible')) {
                         list.empty();
-                        const visitedIds = JSON.parse(sessionStorage.getItem('visitedMovies') || '[]').slice(-100).reverse(); // últimos 5
-                        const visitedMovies = visitedIds
-                            .map(id => movies.find(m => m.movieId === id))
-                            .filter(Boolean);
+  
 
                         visitedMovies.forEach(movie => {
                             list.append(`

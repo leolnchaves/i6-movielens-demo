@@ -28,6 +28,11 @@
     box-shadow: var(--shadow-card);
 }
 
+.glass-transparent {
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-card);
+}
+
 #wrapper {
     max-width: 1400px;
     justify-self: center;
