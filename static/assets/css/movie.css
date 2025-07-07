@@ -154,7 +154,7 @@
 
 .movie-plot {
     padding-left: 10px;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.4;
     max-width: 600px;
     color: #e2e8f0;
@@ -174,45 +174,31 @@
 .detail-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 30px;
-    padding-bottom: 10px;
+    border-radius: 0.75rem;
+    padding: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
-
-.detail-card:hover {
-    /* transform: translateY(-10px); */
-    background: rgba(255, 255, 255, 0.02);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-}
-
 .detail-card h3 {
-    font-size: 20px;
-    margin-bottom: 15px;
+    font-size: .875rem;
     font-weight: 700;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
+.detail-card span {
+    font-size: 1.0rem;
+}
+
 .detail-card p {
-    line-height: 1.6;
+    font-size: 0.75rem;
+    line-height: 1;
+    margin-block: 0;
     color: #cbd5e0;
-}
-
-.crew-info p,
-.production-info p {
-    margin-bottom: 8px;
-}
-
-.crew-info strong,
-.production-info strong {
-    color: #fff;
-    margin-right: 10px;
 }
 
 /* Hero Recommendations (Carousel) - Positioned below hero */
