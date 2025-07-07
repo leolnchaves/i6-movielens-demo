@@ -288,6 +288,7 @@
                 const unclicked = recommendedMovies.filter(m => !visitedIds.includes(m.movieId));
 
                 visitedMovies = visitedIds
+                    .filter(id => id !== movieId)
                     .map(id => movies.find(m => m.movieId === id))
                     .filter(Boolean);
 
