@@ -106,24 +106,25 @@
                         <div class="hero-overlay" style="background-image: url('${selected.poster}')"></div>
                         <div class="hero-content">
                             <div class="movie-main-info">
-                                <h1 class="movie-title">${selected.title}</h1>
-                                <div class="movie-meta">
-                                    <span class="runtime"><span class="material-symbols-outlined">schedule</span> ${selected.runtime}</span>
-                                    <div class="rating-badge">
-                                        <span class="material-symbols-outlined">
-                                            star
-                                        </span>
-                                        <span class="rating-value">
-                                            ${selected.imdb_rating}
-                                        </span>
+                                <div>
+                                    <h1 class="movie-title">${selected.title}</h1>
+                                    <div class="movie-meta">
+                                        <span class="runtime"><span class="material-symbols-outlined">schedule</span> ${selected.runtime}</span>
+                                        <div class="rating-badge">
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            <span class="rating-value">
+                                                ${selected.imdb_rating}
+                                            </span>
+                                        </div>
+                                        <span class="language"><span class="material-symbols-outlined">public</span> ${selected.language}</span>
                                     </div>
-                                    <span class="language"><span class="material-symbols-outlined">public</span> ${selected.language}</span>
-                                </div>
-                                <div class="genre-tags">
-                                    ${selected.genres.map(genre => `<span class="genre-tag">${genre}</span>`).join('')}
+                                    <div class="genre-tags">
+                                        ${selected.genres.map(genre => `<span class="genre-tag">${genre}</span>`).join('')}
+                                    </div>
                                 </div>
                                 <p class="movie-plot">${selected.plot}</p>
-
                                 <div class="details-grid inside-hero">
                                     <div class="detail-card glass-morphism cast-card">
                                         <h3><span class="material-symbols-outlined">theater_comedy</span> Main Cast</h3>
