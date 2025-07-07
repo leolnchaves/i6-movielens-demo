@@ -96,6 +96,18 @@
     flex: 1;
 }
 
+.hat-main-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* ou center, se quiser alinhar verticalmente */
+}
+.hat-main-info > div:first-child {
+    flex: 1;
+}
+  
+.hat-main-info > div:last-child {
+    flex-shrink: 0;
+}
 
 
 .movie-title {
@@ -154,7 +166,6 @@
 
 
 .movie-plot {
-    padding-left: 10px;
     font-size: 16px;
     line-height: 1.4;
     max-width: 600px;

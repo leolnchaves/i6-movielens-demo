@@ -106,20 +106,23 @@
                         <div class="hero-overlay" style="background-image: url('${selected.poster}')"></div>
                         <div class="hero-content">
                             <div class="movie-main-info">
-                                <div>
-                                    <h1 class="movie-title">${selected.title}</h1>
-                                    <div class="movie-meta">
-                                        <span class="runtime"><span class="material-symbols-outlined">schedule</span> ${selected.runtime}</span>
-                                        <div class="rating-badge">
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            <span class="rating-value">
-                                                ${selected.imdb_rating}
-                                            </span>
-                                        </div>
-                                        <span class="language"><span class="material-symbols-outlined">public</span> ${selected.language}</span>
+                                <div class="hat-main-info">
+                                    <div>
+                                        <h1 class="movie-title">${selected.title}</h1>
+                                        <div class="movie-meta">
+                                            <span class="runtime"><span class="material-symbols-outlined">schedule</span> ${selected.runtime}</span>
+                                            <div class="rating-badge">
+                                                <span class="material-symbols-outlined">
+                                                    star
+                                                </span>
+                                                <span class="rating-value">
+                                                    ${selected.imdb_rating}
+                                                </span>
+                                            </div>
+                                            <span class="language"><span class="material-symbols-outlined">public</span> ${selected.language}</span>
+                                        </div>  
                                     </div>
+
                                     <div class="genre-tags">
                                         ${selected.genres.map(genre => `<span class="genre-tag">${genre}</span>`).join('')}
                                     </div>
